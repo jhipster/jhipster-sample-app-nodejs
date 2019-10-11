@@ -7,18 +7,18 @@
     </h2>
     <jhi-alert></jhi-alert>
     <div class="table-responsive" *ngIf="users">
-        <table class="table table-striped">
+        <table class="table table-striped" aria-describedby="user-management-page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th></th>
-                <th><span>Profiles</span></th>
-                <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="lastModifiedBy"><span>Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="lastModifiedDate"><span>Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th></th>
+                <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"></th>
+                <th scope="col"><span>Profiles</span></th>
+                <th scope="col" jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col" jhiSortBy="lastModifiedBy"><span>Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col" jhiSortBy="lastModifiedDate"><span>Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody *ngIf ="users">

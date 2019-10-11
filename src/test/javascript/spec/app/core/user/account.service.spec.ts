@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { SERVER_API_URL } from 'app/app.constants';
-import { AccountService } from 'app/core';
+import { AccountService } from 'app/core/auth/account.service';
 import { JhiDateUtils } from 'ng-jhipster';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
@@ -26,7 +26,7 @@ describe('Service Tests', () => {
 
     describe('Service methods', () => {
       it('should call /account if user is undefined', () => {
-        service.identity().then(() => {});
+        service.identity().subscribe(() => {});
         const req = httpMock.expectOne({ method: 'GET' });
         const resourceUrl = SERVER_API_URL + 'api/account';
 
@@ -34,7 +34,7 @@ describe('Service Tests', () => {
       });
 
       it('should call /account only once', () => {
-        service.identity().then(() => service.identity().then(() => {}));
+        service.identity().subscribe(() => service.identity().subscribe(() => {}));
         const req = httpMock.expectOne({ method: 'GET' });
         const resourceUrl = SERVER_API_URL + 'api/account';
 
@@ -44,55 +44,55 @@ describe('Service Tests', () => {
         });
       });
 
-      describe('hasAuthority', () => {
-        it('should return false if user is not logged', async () => {
-          const hasAuthority = await service.hasAuthority('ROLE_USER');
+      describe('hasAnyAuthority string parameter', () => {
+        it('should return false if user is not logged', () => {
+          const hasAuthority = service.hasAnyAuthority('ROLE_USER');
           expect(hasAuthority).toBeFalsy();
         });
 
-        it('should return false if user is logged and has not authority', async () => {
+        it('should return false if user is logged and has not authority', () => {
           service.authenticate({
             authorities: ['ROLE_USER']
           });
 
-          const hasAuthority = await service.hasAuthority('ROLE_ADMIN');
+          const hasAuthority = service.hasAnyAuthority('ROLE_ADMIN');
 
           expect(hasAuthority).toBeFalsy();
         });
 
-        it('should return true if user is logged and has authority', async () => {
+        it('should return true if user is logged and has authority', () => {
           service.authenticate({
             authorities: ['ROLE_USER']
           });
 
-          const hasAuthority = await service.hasAuthority('ROLE_USER');
+          const hasAuthority = service.hasAnyAuthority('ROLE_USER');
 
           expect(hasAuthority).toBeTruthy();
         });
       });
 
-      describe('hasAnyAuthority', () => {
-        it('should return false if user is not logged', async () => {
-          const hasAuthority = await service.hasAnyAuthority(['ROLE_USER']);
+      describe('hasAnyAuthority array parameter', () => {
+        it('should return false if user is not logged', () => {
+          const hasAuthority = service.hasAnyAuthority(['ROLE_USER']);
           expect(hasAuthority).toBeFalsy();
         });
 
-        it('should return false if user is logged and has not authority', async () => {
+        it('should return false if user is logged and has not authority', () => {
           service.authenticate({
             authorities: ['ROLE_USER']
           });
 
-          const hasAuthority = await service.hasAnyAuthority(['ROLE_ADMIN']);
+          const hasAuthority = service.hasAnyAuthority(['ROLE_ADMIN']);
 
           expect(hasAuthority).toBeFalsy();
         });
 
-        it('should return true if user is logged and has authority', async () => {
+        it('should return true if user is logged and has authority', () => {
           service.authenticate({
             authorities: ['ROLE_USER']
           });
 
-          const hasAuthority = await service.hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN']);
+          const hasAuthority = service.hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN']);
 
           expect(hasAuthority).toBeTruthy();
         });

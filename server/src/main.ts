@@ -4,7 +4,6 @@ import { NestFactory } from '@nestjs/core';
 import cloudConfigClient from 'cloud-config-client';
 import { AppModule } from './app.module';
 import { setupSwagger } from './swagger';
-import { initialDataLoad } from './initial-data.load';
 import { config } from './config/config';
 import { Logger, ValidationPipe, ValidationError, BadRequestException } from '@nestjs/common';
 import * as express from 'express';
@@ -13,7 +12,7 @@ import * as fs from 'fs';
 const logger: Logger = new Logger('Main');
 
 async function bootstrap() {
-  loadSpringCloudConfig();
+  loadCloudConfig();
   registerAsEurekaService();
 
   const appOptions = { cors: true };
@@ -32,23 +31,21 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  initialDataLoad();
-
   await app.listen(config.get('server.port'));
   logger.log(`Application listening on port ${config.get('server.port')}`);
 }
 
-async function loadSpringCloudConfig() {
+async function loadCloudConfig() {
   const useJHipsterRegistry = false && config.get('eureka.client.enabled');
   if (useJHipsterRegistry) {
-    const endpoint = config.get('spring.cloud.config.uri') || 'http://admin:admin@localhost:8761/config';
-    logger.log(`Loading spring cloud config from ${endpoint}`);
+    const endpoint = config.get('cloud.config.uri') || 'http://admin:admin@localhost:8761/config';
+    logger.log(`Loading cloud config from ${endpoint}`);
 
     const cloudConfig = await cloudConfigClient.load({
       context: process.env,
       endpoint,
-      name: config.get('spring.cloud.config.name'),
-      profiles: config.get('spring.cloud.config.profile') || ['prod']
+      name: config.get('cloud.config.name'),
+      profiles: config.get('cloud.config.profile') || ['prod']
       // auth: {
       //   user: config.get('jhipster.registry.username') || 'admin',
       //   pass: config.get('jhipster.registry.password') || 'admin'
@@ -61,9 +58,9 @@ async function loadSpringCloudConfig() {
 async function registerAsEurekaService() {
   const useJHipsterRegistry = false && config.get('eureka.client.enabled');
   if (useJHipsterRegistry) {
-    logger.log(`Registering with eureka ${config.get('spring.cloud.config.uri')}`);
+    logger.log(`Registering with eureka ${config.get('cloud.config.uri')}`);
     const Eureka = require('eureka-js-client').Eureka;
-    const eurekaUrl = require('url').parse(config.get('spring.cloud.config.uri'));
+    const eurekaUrl = require('url').parse(config.get('cloud.config.uri'));
     const client = new Eureka({
       instance: {
         app: config.get('eureka.instance.appname'),

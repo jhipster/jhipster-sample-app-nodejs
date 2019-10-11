@@ -22,13 +22,13 @@
         <span>No audit found</span>
     </div>
     <div class="table-responsive" *ngIf="audits?.length > 0">
-        <table class="table table-sm table-striped">
+        <table class="table table-sm table-striped"  aria-describedby="audits-page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="auditEventDate"><span>Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="principal"><span>User</span><fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="auditEventType"><span>State</span><fa-icon [icon]="'sort'"></fa-icon></th>
-                <th><span>Extra data</span></th>
+                <th scope="col" jhiSortBy="auditEventDate"><span>Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col" jhiSortBy="principal"><span>User</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col" jhiSortBy="auditEventType"><span>State</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col" ><span>Extra data</span></th>
             </tr>
             </thead>
             <tbody>

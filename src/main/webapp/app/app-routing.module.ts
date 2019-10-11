@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { errorRoute, navbarRoute } from './layouts';
+import { errorRoute } from './layouts/error/error.route';
+import { navbarRoute } from './layouts/navbar/navbar.route';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
+
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -11,7 +14,15 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
       [
         {
           path: 'admin',
-          loadChildren: './admin/admin.module#GenAdminModule'
+          data: {
+            authorities: ['ROLE_ADMIN']
+          },
+          canActivate: [UserRouteAccessService],
+          loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule)
+        },
+        {
+          path: 'account',
+          loadChildren: () => import('./account/account.module').then(m => m.GenAccountModule)
         },
         ...LAYOUT_ROUTES
       ],

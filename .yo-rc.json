@@ -1,22 +1,24 @@
 {
   "generator-jhipster-nodejs": {
-    "jhipsterVersion": "6.3.0",
+    "jhipsterVersion": "6.4.1",
     "applicationType": "monolith",
     "baseName": "gen",
     "packageName": "com.jhipster.node",
     "packageFolder": "com/jhipster/node",
+    "serverPort": "8081",
     "authenticationType": "jwt",
     "cacheProvider": "no",
     "enableHibernateCache": false,
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "sqlite",
-    "prodDatabaseType": "sqlite",
+    "prodDatabaseType": "mysql",
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSwaggerCodegen": false,
+    "embeddableLaunchScript": false,
     "useSass": true,
     "clientPackageManager": "npm",
     "clientFramework": "angularX",
@@ -24,7 +26,7 @@
     "clientThemeVariant": ""
   },
   "generator-jhipster": {
-    "jhipsterVersion": "6.3.0",
+    "jhipsterVersion": "6.4.1",
     "applicationType": "monolith",
     "baseName": "gen",
     "testFrameworks": [],
@@ -34,7 +36,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-alpha.2"
+        "version": "1.0.0-alpha.3"
       }
     ],
     "enableTranslation": false,
@@ -42,7 +44,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-alpha.2"
+        "version": "1.0.0-alpha.3"
       }
     ]
   }

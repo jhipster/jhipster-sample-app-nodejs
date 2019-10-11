@@ -36,10 +36,10 @@
     "dotenv": "8.1.0",
     "eureka-js-client": "4.5.0",
     "js-yaml": "3.13.1",
+    "mysql2": "1.7.0",
     "passport": "0.4.0",
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
-    "rimraf": "3.0.0",
     "rxjs": "6.5.2",
     "shelljs": "0.8.3",
     "sqlite3": "4.0.9",
@@ -56,15 +56,14 @@
     "jest": "24.7.1",
     "nodemon": "1.19.1",
     "prettier": "1.17.0",
+    "rimraf": "3.0.0",
     "supertest": "4.0.2",
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",
     "tsc-watch": "2.2.1",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.16.0",
-    "typescript": "3.4.3",
-    "webpack": "4.29.6",
-    "webpack-cli": "3.2.3"
+    "typescript": "3.4.3"
   },
   "jest": {
     "moduleFileExtensions": [

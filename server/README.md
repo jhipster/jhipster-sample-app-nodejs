@@ -34,6 +34,35 @@
 $ npm install
 ```
 
+## TypeORM configuration
+
+### Define your prod database
+
+If you have selected another database that is not sqlite,
+in [src/orm.config.ts](src/orm.config.ts) change your **url** connection:
+
+```ts
+if(process.env.NODE_ENV==='prod'){
+  ormconfig = {
+      ...
+      url: 'YOUR CONNECTION URL',
+      logging: false,
+      synchronize: commonConf.SYNCRONIZE,
+      entities: commonConf.ENTITIES,
+      migrations: commonConf.MIGRATIONS,
+      cli: commonConf.CLI,
+      migrationsRun: commonConf.MIGRATIONS_RUN,
+  };
+}
+
+```
+
+### Migration data and schema
+
+According [typeORM migration guide](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md),
+there are under [src/migrations/](src/migrations/) the scripts to create the database schema and after to insert data seed.
+The scripts are automatically run in the first start up, and after anymore.
+
 ## Running the app
 
 ```bash
@@ -44,13 +73,13 @@ $ npm run start
 $ npm run start:dev
 
 # build and run in production mode
-$ npm run build && npm run start:prod
+$ set NODE_ENV=prod&& npm run build && npm run start:prod
 
 # run production build with node
-$ set NODE_ENV=dev&&node dist/main.js
+$ set NODE_ENV=prod&& node dist/main.js
 ```
 
-> You can specify dev or prod NODE_ENV value
+> You can specify dev or prod NODE_ENV value (default is dev as indicated in [.env](.env))
 
 ## Lint
 

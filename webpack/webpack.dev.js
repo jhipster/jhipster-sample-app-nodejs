@@ -28,7 +28,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
                 '/h2-console',
                 '/auth'
             ],
-            target: `http${options.tls ? 's' : ''}://localhost:8080`,
+            target: `http${options.tls ? 's' : ''}://localhost:8081`,
             secure: false,
             changeOrigin: options.tls
         }],
@@ -51,10 +51,10 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
     },
     module: {
         rules: [{
-            test: /\.ts$/,
+            test: /\.(j|t)s$/,
             enforce: 'pre',
-            loader: 'tslint-loader',
-            exclude: [/(node_modules)/, new RegExp('reflect-metadata\\' + path.sep + 'Reflect\\.ts')]
+            loader: 'eslint-loader',
+            exclude: /node_modules/
         },
         {
             test: /\.ts$/,
@@ -81,8 +81,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
                         transpileOnly: true,
                         happyPackMode: true
                     }
-                },
-                'angular-router-loader'
+                }
             ],
             exclude: /(node_modules)/
         },

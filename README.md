@@ -1,6 +1,6 @@
 # gen
 
-This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.3.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.3.0](https://www.jhipster.tech/documentation-archive/v6.3.0). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
+This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.4.1](https://www.jhipster.tech/documentation-archive/v6.4.1). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
 
 ## Development
 
@@ -102,45 +102,21 @@ will generate the file:
 
 ## Building and running
 
-You can run the application using mvnw command (if you have JAVA) or the npm standard scripts
-
-### With JAVA installed
-
 #### Running
 
 ```bash
-./mvnw clean package -Pdev
+npm start:app
 ```
 
 #### Building
 
 ```bash
-./mvnw clean package -Pprod
-```
-
-### With node npm scripts
-
-As prerequisite, before you have to build the client code:
-
-```bash
-npm build
-```
-
-#### Running
-
-```bash
-cd server && npm start
-```
-
-#### Building
-
-```bash
-cd server && npm build
+npm build:app
 ```
 
 The build folder with all compiled sources will be **server/dist**.
 
-> For more explanation about full stack server/client build refer to **server/README.md**
+> For more explanation about full stack server/client build refer to [server/README.md](server/README.md)
 
 ### Client tests
 
@@ -151,13 +127,13 @@ Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in 
 For more information, refer to the [Running tests page][].
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.3.0 archive]: https://www.jhipster.tech/documentation-archive/v6.3.0
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.3.0/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.3.0/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.3.0/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.3.0/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.3.0/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.3.0/setting-up-ci/
+[jhipster 6.4.1 archive]: https://www.jhipster.tech/documentation-archive/v6.4.1
+[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.4.1/development/
+[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.4.1/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.4.1/production/
+[running tests page]: https://www.jhipster.tech/documentation-archive/v6.4.1/running-tests/
+[code quality page]: https://www.jhipster.tech/documentation-archive/v6.4.1/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.4.1/setting-up-ci/
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
 [webpack]: https://webpack.github.io/
