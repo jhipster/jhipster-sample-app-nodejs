@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule} from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
 import { UserModule } from '../module/user.module';
 import { PassportModule } from '@nestjs/passport';
@@ -16,6 +16,7 @@ import { AccountController } from '../web/rest/account.controller';
     TypeOrmModule.forFeature([AuthorityRepository]),
     UserModule,
     PassportModule,
+    HttpModule,
     JwtModule.register({
       secret: config['jhipster.security.authentication.jwt.base64-secret'],
       signOptions: { expiresIn: '300s' }
@@ -23,6 +24,6 @@ import { AccountController } from '../web/rest/account.controller';
   ],
   controllers: [UserJWTController, AuthController, AccountController],
   providers: [AuthService, JwtStrategy],
-  exports: [AuthService]
+  exports: [AuthService],
 })
 export class AuthModule {}

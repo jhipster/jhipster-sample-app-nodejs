@@ -30,9 +30,9 @@ export class ManagementController {
   @ApiOperation({ title: 'Microservice Info' })
   @ApiResponse({
     status: 200,
-    description: 'Check if the microservice is up'
+    description: 'Check if the microservice is up',
   })
-  async info(@Req() req: Request, @Res() res: Response) {
-    return res.status(200);
+  async info(@Req() req: Request) {
+     req.res.status(200);
   }
 }

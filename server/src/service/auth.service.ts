@@ -14,7 +14,8 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
-    private userService: UserService
+    private userService: UserService,
+
   ) {}
 
   async login(userLogin: UserLoginDTO) {
@@ -34,6 +35,7 @@ export class AuthService {
       id_token: this.jwtService.sign(payload)
     };
   }
+
 
   async validateUser(payload: Payload): Promise<User | undefined> {
     return await this.findUserWithAuthById(payload.id);

@@ -1,4 +1,4 @@
-import { Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtStrategy } from './security/passport.jwt.strategy';
 import { AuthModule } from './module/auth.module';
@@ -9,7 +9,7 @@ import { ormconfig } from './orm.config';
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormconfig),
-    AuthModule
+    AuthModule,
     // jhipster-needle-add-entity-module-to-main - JHipster will add entity modules here, do not remove
   ],
   controllers: [

@@ -52,10 +52,10 @@ export class AccountController {
   @ApiOperation({ title: 'Activate an account' })
   @ApiResponse({
     status: 200,
-    description: 'activated'
+    description: 'activated',
   })
-  async activateAccount(@Param() key: string, @Res() res: Response) {
-    return res.sendStatus(200);
+  async activateAccount(@Param() key: string, @Req() req: Request) {
+    return req.res.status(200);
   }
 
   @Get('/authenticate')
@@ -123,4 +123,6 @@ export class AccountController {
   async finishPasswordReset(@Req() req: Request, @Body() keyAndPassword: string, @Res() res: Response) {
     return res.sendStatus(201);
   }
+
+
 }
