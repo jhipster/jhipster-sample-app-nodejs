@@ -1,3 +1,3 @@
 import { AuthGuard as NestAuthGuard } from '@nestjs/passport';
 
-export const AuthGuard = NestAuthGuard('jwt');
+export const AuthGuard = NestAuthGuard('oauth2');

@@ -1,4 +1,5 @@
-import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
+import { ExtractJwt, VerifiedCallback } from 'passport-jwt';
+import { Strategy} from 'passport-http-bearer';
 import { PassportStrategy } from '@nestjs/passport';
 // import OAuth2Strategy = require('passport-oauth2');
 import { Injectable, Inject, UnauthorizedException, Logger } from '@nestjs/common';
@@ -8,14 +9,11 @@ import { config } from '../config/config';
 import { AuthService } from '../service/auth.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy,'oauth2') {
 
   logger = new Logger('OAUTH');
   constructor(private readonly authService: AuthService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
-      secretOrKey: config['jhipster.security.authentication.jwt.base64-secret'],
       /*authorizationURL: 'https://github.com/login/oauth/authorize',
       tokenURL: 'https://github.com/login/oauth/access_token',
       clientID: 'ee2237108219b3e6eba3',

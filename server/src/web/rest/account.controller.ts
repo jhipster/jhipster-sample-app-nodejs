@@ -55,7 +55,7 @@ export class AccountController {
     description: 'activated',
   })
   async activateAccount(@Param() key: string, @Req() req: Request) {
-    return req.res.status(200);
+    return;
   }
 
   @Get('/authenticate')
@@ -77,7 +77,8 @@ export class AccountController {
   })
   async getAccount(@Req() req: Request) {
     const user: User = req.user;
-    return await this.authService.findUserWithAuthById(user.id);
+    // return await this.authService.findUserWithAuthById(user.id);
+    return user;
   }
 
   @Post('/account')
