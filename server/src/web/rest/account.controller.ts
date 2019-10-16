@@ -1,19 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Logger,
-  Param,
-  Post,
-  Put,
-  Query,
-  Res,
-  UseGuards,
-  Req,
-  UseInterceptors
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Logger, Param, Post, Put, Query, Res, UseGuards, Req, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Response, Request } from 'express';
 import { Authority } from '../../domain/authority.entity';
@@ -28,7 +13,7 @@ import { AuthService } from '../../service/auth.service';
 
 @Controller('api')
 @UseInterceptors(LoggingInterceptor)
-@UseGuards(AuthGuard, RolesGuard)
+@UseGuards(AuthGuard)
 @UseInterceptors(LoggingInterceptor)
 @ApiBearerAuth()
 @ApiUseTags('account-resource')
@@ -65,7 +50,7 @@ export class AccountController {
     description: 'login authenticated'
   })
   async isAuthenticated(@Req() req: Request) {
-    const user: User = req.user;
+    const user: User = req['user'];
     return user.login;
   }
 
@@ -76,7 +61,8 @@ export class AccountController {
     description: 'user retrieved'
   })
   async getAccount(@Req() req: Request) {
-    const user: User = req.user;
+    const user: User = req['user'];
+    this.logger.log('acco '  + user);
     // return await this.authService.findUserWithAuthById(user.id);
     return user;
   }

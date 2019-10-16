@@ -1,6 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { JwtService } from '@nestjs/jwt';
 import { User } from '../domain/user.entity';
 import { UserLoginDTO } from '../service/dto/user-login.dto';
 import { Authority } from '../domain/authority.entity';
@@ -12,7 +11,6 @@ import { FindManyOptions } from 'typeorm';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly jwtService: JwtService,
     @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
     private userService: UserService,
 
@@ -32,7 +30,7 @@ export class AuthService {
     const payload: Payload = { id: user.id, username: user.login, authorities: user.authorities };
 
     return {
-      id_token: this.jwtService.sign(payload)
+      id_token: 'blabla',
     };
   }
 

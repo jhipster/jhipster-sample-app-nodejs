@@ -9,6 +9,9 @@ import { Logger, ValidationPipe, ValidationError, BadRequestException } from '@n
 import * as express from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
+import passport = require('passport');
+import session = require('express-session');
+
 const logger: Logger = new Logger('Main');
 
 async function bootstrap() {
@@ -22,6 +25,20 @@ async function bootstrap() {
       exceptionFactory: (errors: ValidationError[]) => new BadRequestException('Validation error')
     })
   );
+
+  app.use(
+    session({
+      secret: 'nest cats',
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
+
+
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
 
   const staticClientPath = path.join(__dirname, '../dist/classes/static');
   if (fs.existsSync(staticClientPath)) {

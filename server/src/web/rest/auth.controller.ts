@@ -1,19 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Logger,
-  Param,
-  Post,
-  Put,
-  Query,
-  Res,
-  UseGuards,
-  Req,
-  UseInterceptors
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Logger, Param, Post, Put, Query, Res, UseGuards, Req, UseInterceptors } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { Authority } from '../../domain/authority.entity';
 import { User } from '../../domain/user.entity';
@@ -42,7 +27,7 @@ export class AuthController {
   })
   @Roles(RoleType.ADMIN)
   async getAuthorities(@Req() req: Request) {
-    const user: User = req.user;
+    const user: User = req['user'];
     return user.authorities;
   }
 }
