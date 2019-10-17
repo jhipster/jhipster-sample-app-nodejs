@@ -1,13 +1,13 @@
 <div *ngIf="allConfiguration && configuration">
-    <h2 id="configuration-page-heading">Configuration</h2>
+    <h2 id="configuration-page-heading" jhiTranslate="configuration.title">Configuration</h2>
 
-    <span>Filter (by prefix)</span> <input type="text" [(ngModel)]="filter" class="form-control">
+    <span jhiTranslate="configuration.filter">Filter (by prefix)</span> <input type="text" [(ngModel)]="filter" class="form-control">
     <h3 id="spring-configuration">Spring configuration</h3>
     <table class="table table-striped table-bordered table-responsive d-table" aria-describedby="spring-configuration">
         <thead>
         <tr>
-            <th scope="col" class="w-40" (click)="orderProp = 'prefix'; reverse=!reverse"><span>Prefix</span></th>
-            <th scope="col" class="w-60" (click)="orderProp = 'properties'; reverse=!reverse"><span>Properties</span></th>
+            <th scope="col" class="w-40" (click)="orderProp = 'prefix'; reverse=!reverse"><span jhiTranslate="configuration.table.prefix">Prefix</span></th>
+            <th scope="col" class="w-60" (click)="orderProp = 'properties'; reverse=!reverse"><span jhiTranslate="configuration.table.properties">Properties</span></th>
         </tr>
         </thead>
         <tbody>

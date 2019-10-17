@@ -9,7 +9,6 @@ import { AuthorityRepository } from '../repository/authority.repository';
 import { UserOauth2Controller } from '../web/rest/user.oauth2.controller';
 import { AuthController } from '../web/rest/auth.controller';
 import { AccountController } from '../web/rest/account.controller';
-import { SessionSerializer } from '../security/session.serializer';
 
 @Module({
   imports: [
@@ -18,7 +17,7 @@ import { SessionSerializer } from '../security/session.serializer';
     PassportModule,
   ],
   controllers: [UserOauth2Controller, AuthController, AccountController],
-  providers: [AuthService, Oauth2Strategy, SessionSerializer],
+  providers: [AuthService, Oauth2Strategy],
   exports: [AuthService],
 })
 export class AuthModule { }

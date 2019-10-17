@@ -1,6 +1,6 @@
 {
-  "name": "Gen",
-  "short_name": "Gen",
+  "name": "JhipsterOauth2SampleApplication",
+  "short_name": "JhipsterOauth2SampleApplication",
   "icons": [
       {
           "src": "./content/images/jhipster_family_member_0_head-192.png",

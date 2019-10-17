@@ -8,4 +8,4 @@ import { RouterModule } from '@angular/router';
     ])
   ]
 })
-export class GenEntityModule {}
+export class JhipsterOauth2SampleApplicationEntityModule {}

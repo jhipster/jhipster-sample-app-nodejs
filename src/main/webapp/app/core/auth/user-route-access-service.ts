@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
-import { LoginModalService } from 'app/core/login/login-modal.service';
+import { LoginService } from 'app/core/login/login.service';
 import { StateStorageService } from './state-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserRouteAccessService implements CanActivate {
   constructor(
     private router: Router,
-    private loginModalService: LoginModalService,
+    private loginService: LoginService,
     private accountService: AccountService,
     private stateStorageService: StateStorageService
   ) {}
@@ -44,7 +44,7 @@ export class UserRouteAccessService implements CanActivate {
         }
 
         this.stateStorageService.storeUrl(url);
-        this.loginModalService.open();
+        this.loginService.login();
         return false;
       })
     );

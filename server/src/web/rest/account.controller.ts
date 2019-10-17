@@ -13,7 +13,7 @@ import { AuthService } from '../../service/auth.service';
 
 @Controller('api')
 @UseInterceptors(LoggingInterceptor)
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard,RolesGuard)
 @UseInterceptors(LoggingInterceptor)
 @ApiBearerAuth()
 @ApiUseTags('account-resource')

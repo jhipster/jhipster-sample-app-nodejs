@@ -14,6 +14,14 @@ export class AuthGuard extends NestAuthGuard('oauth2') {
       return true;
     }
 
+    const url = request.url;
+
+    if (!url.includes('/login/oauth2/code/oidc?code=') && !url.includes('/oauth2/authorization/oidc')) {
+      request.session.url = url;
+    }
+
+    this.logger.log('url ' + url);
+
     return super.canActivate(context);
   }
 }

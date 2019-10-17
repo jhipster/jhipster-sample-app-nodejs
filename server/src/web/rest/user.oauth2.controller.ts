@@ -3,19 +3,20 @@ import { Response, Request } from 'express';
 import { UserLoginDTO } from '../../service/dto/user-login.dto';
 import { AuthService } from '../../service/auth.service';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
-import { ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { resolve } from 'path';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 
 @Controller()
 @UseInterceptors(LoggingInterceptor)
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard,RolesGuard)
 @ApiUseTags('user-oauth2-controller')
 export class UserOauth2Controller {
   logger = new Logger('UserOauth2Controller');
 
   constructor(private readonly authService: AuthService) { }
 
+  @ApiExcludeEndpoint()
   @Get('/login/oauth2/code/oidc')
   @ApiOperation({ title: 'Microservice redirect' })
   @ApiResponse({
@@ -25,6 +26,11 @@ export class UserOauth2Controller {
   async redirect(@Req() req: Request, @Res() res: Response) {
     res['session'] = req['session'];
     res['session']['user'] = req['user'];
+    const url = req['session']['url'];
+    if (url) {
+      delete req['session']['url'];
+      return res.redirect(url);
+    }
     return res.redirect('/');
 
   }

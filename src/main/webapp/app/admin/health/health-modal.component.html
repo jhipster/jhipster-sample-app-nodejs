@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="showHealthLabel"><span class="text-capitalize">{{ baseName(currentHealth.name) }}</span>
+    <h4 class="modal-title" id="showHealthLabel">
+		{{'health.indicator.' + baseName(currentHealth.name) | translate}}
         {{subSystemName(currentHealth.name)}}
     </h4>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">&times;</span>
@@ -7,13 +8,13 @@
 </div>
 <div class="modal-body pad">
     <div *ngIf="currentHealth.details">
-        <h5>Properties</h5>
+        <h5 jhiTranslate="health.details.properties">Properties</h5>
         <div class="table-responsive">
             <table class="table table-striped" aria-describedby="showHealthLabel">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-left">Name</th>
-                        <th scope="col" class="text-left">Value</th>
+                        <th scope="col" class="text-left" jhiTranslate="health.details.name">Name</th>
+                        <th scope="col" class="text-left" jhiTranslate="health.details.value">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +27,7 @@
         </div>
     </div>
     <div *ngIf="currentHealth.error">
-        <h4>Error</h4>
+        <h4 jhiTranslate="health.details.error">Error</h4>
             <pre>{{currentHealth.error}}</pre>
     </div>
 </div>
