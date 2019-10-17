@@ -29,7 +29,7 @@ async function bootstrap() {
   app.use(
     session({
       secret: 'nest cats',
-      resave: false,
+      resave: true,
       saveUninitialized: true,
     }),
   );

@@ -3,13 +3,13 @@ import { AuthService } from '../service/auth.service';
 import { UserModule } from '../module/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { config } from '../config/config';
-import { JwtStrategy } from '../security/passport.jwt.strategy';
+import { Oauth2Strategy } from '../security/passport.oauth2.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorityRepository } from '../repository/authority.repository';
-import { UserJWTController } from '../web/rest/user.jwt.controller';
+import { UserOauth2Controller } from '../web/rest/user.oauth2.controller';
 import { AuthController } from '../web/rest/auth.controller';
 import { AccountController } from '../web/rest/account.controller';
-// import { SessionSerializer } from '../security/session.serializer';
+import { SessionSerializer } from '../security/session.serializer';
 
 @Module({
   imports: [
@@ -17,10 +17,8 @@ import { AccountController } from '../web/rest/account.controller';
     UserModule,
     PassportModule,
   ],
-  controllers: [UserJWTController, AuthController, AccountController],
-  providers: [AuthService, JwtStrategy,
-    // SessionSerializer
-    ],
+  controllers: [UserOauth2Controller, AuthController, AccountController],
+  providers: [AuthService, Oauth2Strategy, SessionSerializer],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -9,26 +9,26 @@ import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 
 @Controller()
 @UseInterceptors(LoggingInterceptor)
-@ApiUseTags('user-jwt-controller')
-export class UserJWTController {
-  logger = new Logger('UserJWTController');
+@UseGuards(AuthGuard)
+@ApiUseTags('user-oauth2-controller')
+export class UserOauth2Controller {
+  logger = new Logger('UserOauth2Controller');
 
   constructor(private readonly authService: AuthService) { }
 
   @Get('/login/oauth2/code/oidc')
-  @UseGuards(AuthGuard)
   @ApiOperation({ title: 'Microservice redirect' })
   @ApiResponse({
     status: 200,
     description: 'Redirect oauth2 login',
   })
   async redirect(@Req() req: Request, @Res() res: Response) {
-    this.logger.log(req['user']);
+    res['session'] = req['session'];
+    res['session']['user'] = req['user'];
     return res.redirect('/');
+
   }
 
-
-  @UseGuards(AuthGuard)
   @Get('/oauth2/authorization/oidc')
   @ApiOperation({ title: 'Microservice auth oidc' })
   @ApiResponse({

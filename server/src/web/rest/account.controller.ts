@@ -20,7 +20,7 @@ import { AuthService } from '../../service/auth.service';
 export class AccountController {
   logger = new Logger('AccountController');
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post('/register')
   @ApiOperation({ title: 'Register user' })
@@ -62,7 +62,7 @@ export class AccountController {
   })
   async getAccount(@Req() req: Request) {
     const user: User = req['user'];
-    this.logger.log('acco '  + user);
+    this.logger.log('account ' + user);
     // return await this.authService.findUserWithAuthById(user.id);
     return user;
   }
