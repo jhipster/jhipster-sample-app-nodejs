@@ -12,10 +12,10 @@ export class ManagementController {
 
   @ApiExcludeEndpoint()
   @Get('/info')
-  @ApiOperation({ title: 'Microservice Info' })
+  @ApiOperation({ title: 'Backend Info' })
   @ApiResponse({
     status: 200,
-    description: 'Check if the microservice is up',
+    description: 'Check if the backend is up',
   })
   async info(@Req() req: any) {
     return;

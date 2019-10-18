@@ -7,12 +7,13 @@ import { PageRequest, Page } from '../../domain/base/pagination.entity';
 import { User } from '../../domain/user.entity';
 import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
-import { ApiBearerAuth, ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOAuth2Auth, ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { UserService } from '../../service/user.service';
 import { AuthService } from '../../service/auth.service';
 
 @Controller('api/users')
 @UseGuards(AuthGuard, RolesGuard)
+@ApiOAuth2Auth()
 @UseInterceptors(LoggingInterceptor)
 @ApiUseTags('user-resource')
 export class UserController {
@@ -43,10 +44,10 @@ export class UserController {
   @ApiOperation({ title: 'Create user' })
   @ApiResponse({
     status: 201,
-    description: 'The record has been successfully created.',
+    description: 'The record has been successfully created',
     type: User
   })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   async createUser(@Req() req: Request, @Body() user: User) {
     const created = await this.userService.save(user);
     HeaderUtil.addEntityCreatedHeaders(req.res, 'User', created.id);
@@ -58,7 +59,7 @@ export class UserController {
   @ApiOperation({ title: 'Update user' })
   @ApiResponse({
     status: 200,
-    description: 'The record has been successfully updated.',
+    description: 'The record has been successfully updated',
     type: User
   })
   async updateUser(@Req() req: Request, @Body() user: User) {
@@ -80,7 +81,7 @@ export class UserController {
   @ApiOperation({ title: 'Delete login user' })
   @ApiResponse({
     status: 204,
-    description: 'The record has been successfully deleted.'
+    description: 'The record has been successfully deleted'
   })
   @Roles(RoleType.ADMIN)
   async deleteUser(@Req() req: Request, @Param('login') loginValue: string) {

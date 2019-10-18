@@ -1,7 +1,6 @@
 import Strategy = require('passport-oauth2');
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Inject, UnauthorizedException, Logger, HttpService } from '@nestjs/common';
-import { Payload } from './payload.interface';
 import { Request } from 'express';
 import { config } from '../config/config';
 import { AuthService } from '../service/auth.service';
@@ -63,12 +62,7 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'oauth2') {
 
   async validate(accessToken: any, refreshToken: any, user: any, done: any) {
 
-    /*const user = this.authService.validateUser(payload);
-    if (!user) {
-      return done(new UnauthorizedException({ message: 'user does not exist' }), false);
-    }
-
-     */
+    await this.authService.findUserOrSave(user);
     return done(null, user);
   }
 

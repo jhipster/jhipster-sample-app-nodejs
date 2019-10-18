@@ -1,53 +1,32 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../domain/user.entity';
-import { UserLoginDTO } from '../service/dto/user-login.dto';
-import { Authority } from '../domain/authority.entity';
 import { AuthorityRepository } from '../repository/authority.repository';
 import { UserService } from '../service/user.service';
-import { Payload } from '../security/payload.interface';
 import { FindManyOptions } from 'typeorm';
 
 @Injectable()
 export class AuthService {
+  logger = new Logger('AuthService');
   constructor(
     @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
     private userService: UserService,
 
-  ) {}
+  ) { }
 
-  async login(userLogin: UserLoginDTO) {
-    const loginUserName = userLogin.username;
-    const loginPassword = userLogin.password;
 
-    const userFind = await this.userService.findByfields({ where: { username: loginUserName, password: loginPassword } });
-    if (!userFind) {
-      throw new HttpException('Invalid login name or password.', HttpStatus.BAD_REQUEST);
+  async findUserOrSave(loginUser: User): Promise<User | undefined> {
+    let userFound = await this.userService.findByfields({ where: { login: loginUser.login }, relations: ['authorities'] });
+
+    if (!userFound) {
+      const authoritiesName = [];
+      loginUser.authorities.forEach(authority => authoritiesName.push({ name: authority }));
+      userFound = Object.assign({}, loginUser);
+      userFound.authorities = authoritiesName;
+      await this.userService.save(userFound);
     }
-
-    const user = await this.findUserWithAuthById(userFind.id);
-
-    const payload: Payload = { id: user.id, username: user.login, authorities: user.authorities };
-
-    return {
-      id_token: 'blabla',
-    };
+    this.logger.log('user :' + JSON.stringify(loginUser));
+    return loginUser;
   }
 
-
-  async validateUser(payload: Payload): Promise<User | undefined> {
-    return await this.findUserWithAuthById(payload.id);
-  }
-
-  async find(): Promise<Authority[]> {
-    return await this.authorityRepository.find();
-  }
-
-  async findUserWithAuthById(userId: string): Promise<User | undefined> {
-    const user = await this.userService.findByfields({ where: { id: userId }, relations: ['authorities'] });
-    const authorities: string[] = [];
-    user.authorities.forEach(authority => authorities.push(authority.name));
-    user.authorities = authorities;
-    return user;
-  }
 }

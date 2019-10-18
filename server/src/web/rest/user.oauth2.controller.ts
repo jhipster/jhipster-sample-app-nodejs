@@ -1,9 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, Logger, Param, Post, Put, Query, Res, UseGuards, Req, UseInterceptors } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { UserLoginDTO } from '../../service/dto/user-login.dto';
 import { AuthService } from '../../service/auth.service';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
-import { ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiOAuth2Auth, ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { resolve } from 'path';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 
@@ -18,10 +17,10 @@ export class UserOauth2Controller {
   @ApiExcludeEndpoint()
   @UseGuards(AuthGuard, RolesGuard)
   @Get('/login/oauth2/code/oidc')
-  @ApiOperation({ title: 'Microservice redirect' })
+  @ApiOperation({ title: 'Backend redirect' })
   @ApiResponse({
     status: 200,
-    description: 'Redirect oauth2 login',
+    description: 'Redirect oauth2 oidc after login',
   })
   async redirect(@Req() req: any, @Res() res: any) {
     res.session = req.session;
@@ -32,8 +31,9 @@ export class UserOauth2Controller {
   }
 
   @Get('/oauth2/authorization/oidc')
+  @ApiOAuth2Auth()
   @UseGuards(AuthGuard, RolesGuard)
-  @ApiOperation({ title: 'Microservice login auth oidc' })
+  @ApiOperation({ title: 'Perform login oauth2 oidc from client' })
   @ApiResponse({
     status: 200,
     description: 'Redirect to login oauth2 oidc',
@@ -43,15 +43,16 @@ export class UserOauth2Controller {
   }
 
   @Post('/api/logout')
-  @ApiOperation({ title: 'Microservice logout auth oidc' })
+  @ApiOperation({ title: 'Logout oauth2 oidc' })
   @ApiResponse({
     status: 201,
     description: 'Logout oauth2 oidc',
   })
-  async logoutAuthOidc(@Req() req: any, @Res() res: any) {
+  async logoutAuthOidc(@Req() req: any, @Res() res: Response) {
+    // use api to logout from server
     req.session.destroy();
     this.logger.log(' logout sess:' + JSON.stringify(req.session));
-    return res.sendStatus(201);
+    return;
   }
 
 }
