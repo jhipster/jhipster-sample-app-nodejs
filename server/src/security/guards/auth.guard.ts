@@ -9,19 +9,18 @@ export class AuthGuard extends NestAuthGuard('oauth2') {
   canActivate(context: ExecutionContext) {
 
     const request = context.switchToHttp().getRequest();
+
     if (request.session.user) {
       request.user = request.session.user;
+      this.logger.log('already authenticated');
       return true;
     }
 
-    const url = request.url;
 
-    if (!url.includes('/login/oauth2/code/oidc?code=') && !url.includes('/oauth2/authorization/oidc')) {
-      request.session.url = url;
+    if (!request.url.includes('/login/oauth2/code/oidc?code=') && !request.url.includes('/oauth2/authorization/oidc')) {
+      request.session.url = request.url;
     }
-
-    this.logger.log('url ' + url);
-
+    this.logger.log(request.url + ' post:' + JSON.stringify(request.session));
     return super.canActivate(context);
   }
 }

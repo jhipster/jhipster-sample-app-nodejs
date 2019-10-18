@@ -14,7 +14,6 @@ import { AuthService } from '../../service/auth.service';
 @Controller('api/users')
 @UseGuards(AuthGuard, RolesGuard)
 @UseInterceptors(LoggingInterceptor)
-@ApiBearerAuth()
 @ApiUseTags('user-resource')
 export class UserController {
   logger = new Logger('UserController');

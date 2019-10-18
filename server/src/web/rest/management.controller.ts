@@ -17,7 +17,7 @@ export class ManagementController {
     status: 200,
     description: 'Check if the microservice is up',
   })
-  async info(@Req() req: Request) {
-     req.res.status(200);
+  async info(@Req() req: any) {
+    return;
   }
 }

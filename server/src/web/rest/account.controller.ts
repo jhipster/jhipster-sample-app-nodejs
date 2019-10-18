@@ -13,37 +13,15 @@ import { AuthService } from '../../service/auth.service';
 
 @Controller('api')
 @UseInterceptors(LoggingInterceptor)
-@UseGuards(AuthGuard,RolesGuard)
-@UseInterceptors(LoggingInterceptor)
-@ApiBearerAuth()
 @ApiUseTags('account-resource')
 export class AccountController {
   logger = new Logger('AccountController');
 
   constructor(private readonly authService: AuthService) { }
 
-  @Post('/register')
-  @ApiOperation({ title: 'Register user' })
-  @ApiResponse({
-    status: 201,
-    description: 'Registered user',
-    type: User
-  })
-  async registerAccount(@Req() req: Request, @Body() user: User, @Res() res: Response) {
-    return res.sendStatus(201);
-  }
-
-  @Get('/activate')
-  @ApiOperation({ title: 'Activate an account' })
-  @ApiResponse({
-    status: 200,
-    description: 'activated',
-  })
-  async activateAccount(@Param() key: string, @Req() req: Request) {
-    return;
-  }
 
   @Get('/authenticate')
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ title: 'Check if the user is authenticated' })
   @ApiResponse({
     status: 200,
@@ -62,50 +40,58 @@ export class AccountController {
   })
   async getAccount(@Req() req: Request) {
     const user: User = req['user'];
-    this.logger.log('account ' + user);
+    // this.logger.log('account ' + user);
     // return await this.authService.findUserWithAuthById(user.id);
-    return user;
+    if (user) {
+      return user;
+    }
+    return;
+
   }
 
   @Post('/account')
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ title: 'Update the current user information' })
   @ApiResponse({
     status: 201,
     description: 'user info updated',
-    type: User
+    type: User,
   })
   async saveAccount(@Req() req: Request, @Body() user: User, @Res() res: Response) {
     return res.sendStatus(201);
   }
 
   @Post('/account/change-password')
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ title: 'Change current password' })
   @ApiResponse({
     status: 201,
     description: 'user password changed',
-    type: User
+    type: User,
   })
   async changePassword(@Req() req: Request, @Body() user: User, @Res() res: Response) {
     return res.sendStatus(201);
   }
 
   @Post('/account/reset-password/init')
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ title: 'Send an email to reset the password of the user' })
   @ApiResponse({
     status: 201,
     description: 'mail to reset password sent',
-    type: String
+    type: String,
   })
   async requestPasswordReset(@Req() req: Request, @Body() email: string, @Res() res: Response) {
     return res.sendStatus(201);
   }
 
   @Post('/account/reset-password/finish')
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ title: 'Finish to reset the password of the user' })
   @ApiResponse({
     status: 201,
     description: 'password reset',
-    type: String
+    type: String,
   })
   async finishPasswordReset(@Req() req: Request, @Body() keyAndPassword: string, @Res() res: Response) {
     return res.sendStatus(201);

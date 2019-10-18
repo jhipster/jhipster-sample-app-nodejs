@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
 import { UserModule } from '../module/user.module';
 import { PassportModule } from '@nestjs/passport';
@@ -15,6 +15,7 @@ import { AccountController } from '../web/rest/account.controller';
     TypeOrmModule.forFeature([AuthorityRepository]),
     UserModule,
     PassportModule,
+    HttpModule,
   ],
   controllers: [UserOauth2Controller, AuthController, AccountController],
   providers: [AuthService, Oauth2Strategy],

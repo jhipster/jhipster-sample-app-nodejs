@@ -1,6 +1,6 @@
 import Strategy = require('passport-oauth2');
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, Inject, UnauthorizedException, Logger } from '@nestjs/common';
+import { Injectable, Inject, UnauthorizedException, Logger, HttpService } from '@nestjs/common';
 import { Payload } from './payload.interface';
 import { Request } from 'express';
 import { config } from '../config/config';
@@ -15,12 +15,11 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'oauth2') {
 
   logger = new Logger('oauth2');
 
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: AuthService, private readonly httpService: HttpService) {
 
     super({
       authorizationURL: `https://${yourOktaDomain}/oauth2/default/v1/authorize`,
       tokenURL: `https://${yourOktaDomain}/oauth2/default/v1/token`,
-      // userInfoURL: `https://${yourOktaDomain}/oauth2/default/v1/userinfo`,
       clientID: `${ClientID}`,
       clientSecret: `${ClientSecret}`,
       callbackURL: 'http://localhost:8081/login/oauth2/code/oidc',
@@ -29,7 +28,40 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'oauth2') {
     });
   }
 
-  async validate(accessToken: any, refreshToken: any, profile: any, done: any) {
+  async userProfile(accessToken: any, done: any) {
+    // roles with id http://dev-281272.okta.com/api/v1/users/00u1ldqoqzZ5MiCRd357/roles
+    // id in http://dev-281272.okta.com/api/v1/users/me
+    return await this.httpService.get(`https://${yourOktaDomain}/oauth2/default/v1/userinfo`, {
+      headers: {
+        // Include the token in the Authorization header
+        Authorization: 'Bearer ' + accessToken,
+      },
+    }).toPromise().then(res => {
+      const profile = res.data;
+
+      const userProfile = {
+        login: profile.preferred_username,
+        password: '***',
+        firstName: profile.given_name,
+        lastName: profile.family_name,
+        email: profile.email,
+        imageUrl: '',
+        activated: true,
+        langKey: 'en',
+        createdBy: 'system',
+        lastModifiedBy: 'system',
+        authorities: ['ROLE_ADMIN', 'ROLE_USER'],
+      };
+
+      return done(null, userProfile);
+    }).catch(e => {
+      this.logger.error(e)
+      return done(new UnauthorizedException({ message: 'error to retrieve user info from accessToken' }), false);
+    });
+
+  }
+
+  async validate(accessToken: any, refreshToken: any, user: any, done: any) {
 
     /*const user = this.authService.validateUser(payload);
     if (!user) {
@@ -37,30 +69,8 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'oauth2') {
     }
 
      */
-
-    const user = {
-      login: 'admin',
-      password: 'admin',
-      firstName: 'Administrator',
-      lastName: 'Administrator',
-      email: 'admin@localhost.it',
-      imageUrl: '',
-      activated: true,
-      langKey: 'en',
-      createdBy: 'system',
-      lastModifiedBy: 'system',
-      authorities: ['ROLE_ADMIN', 'ROLE_USER'],
-    }
-
-
-    this.logger.log('profile ' + JSON.stringify(profile));
-
     return done(null, user);
   }
 
-  async userProfile(accessToken: any, done: any) {
-    this.logger.log('accessToken ' + accessToken);
-    done(null, { profile: 'empty' });
-  }
 
 }
