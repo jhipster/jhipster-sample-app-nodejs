@@ -28,7 +28,6 @@ export class AccountController {
   })
   async getAccount(@Req() req: Request) {
     const user: User = req['session']['user'];
-    // this.logger.log('account ' + user);
     if (user) {
       return user;
     }

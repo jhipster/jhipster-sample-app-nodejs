@@ -5,7 +5,6 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 import { ApiOAuth2Auth, ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { resolve } from 'path';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
-import { AnyARecord } from 'dns';
 
 @Controller()
 @UseInterceptors(LoggingInterceptor)
@@ -26,6 +25,7 @@ export class UserOauth2Controller {
   async redirect(@Req() req: any, @Res() res: any) {
     res.session = req.session;
     res.session.user = req.user;
+    res.session.idToken = req.idToken;
     const url = req.session.url;
     return res.redirect(url || '/');
 
@@ -50,10 +50,9 @@ export class UserOauth2Controller {
     description: 'Logout oauth2 oidc',
   })
   async logoutAuthOidc(@Req() req: any) {
-    // use api to logout from server and retrieve idToken
+    const idTokenFromSession = req.session.idToken;
     req.session.destroy();
-    this.logger.log(' logout sess:' + JSON.stringify(req.session));
-    return {idToken: '', logoutUrl : 'http://dev-281272.okta.com/logout' };
+    return {idToken: idTokenFromSession, logoutUrl : 'http://dev-281272.okta.com/logout' };
   }
 
 }
