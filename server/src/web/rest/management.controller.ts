@@ -18,6 +18,10 @@ export class ManagementController {
     description: 'Check if the backend is up',
   })
   async info(@Req() req: any) {
-    return;
+
+    return {
+      'activeProfiles': 'no',
+      'display-ribbon-on-profiles': 'no'
+    };
   }
 }

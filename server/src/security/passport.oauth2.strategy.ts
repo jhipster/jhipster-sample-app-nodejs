@@ -54,7 +54,7 @@ export class Oauth2Strategy extends PassportStrategy(Strategy, 'oauth2') {
 
       return done(null, userProfile);
     }).catch(e => {
-      this.logger.error(e)
+      this.logger.error(e);
       return done(new UnauthorizedException({ message: 'error to retrieve user info from accessToken' }), false);
     });
 
