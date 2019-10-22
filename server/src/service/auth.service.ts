@@ -25,7 +25,6 @@ export class AuthService {
       userFound.authorities = authoritiesName;
       await this.userService.save(userFound);
     }
-    this.logger.log('user :' + JSON.stringify(loginUser));
     return loginUser;
   }
 

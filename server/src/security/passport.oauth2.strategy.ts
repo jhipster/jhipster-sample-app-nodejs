@@ -5,9 +5,11 @@ import { Request } from 'express';
 import { config } from '../config/config';
 import { AuthService } from '../service/auth.service';
 
-const yourOktaDomain = 'dev-281272.okta.com';
-const ClientID = '0oa1ldsfjyrdYMRfO357';
-const ClientSecret = 'KXgpyXqvD-Kgc2L77C4uaat8E-kpb0CCx4z56Ayt';
+
+const issuerUri = 'dev-281272.okta.com/oauth2/default';
+const clientID = '0oa1ldsfjyrdYMRfO357';
+const clientSecret = 'KXgpyXqvD-Kgc2L77C4uaat8E-kpb0CCx4z56Ayt';
+
 
 @Injectable()
 export class Oauth2Strategy extends PassportStrategy(Strategy) {
@@ -17,24 +19,26 @@ export class Oauth2Strategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService, private readonly httpService: HttpService) {
 
     super({
-      authorizationURL: `https://${yourOktaDomain}/oauth2/default/v1/authorize`,
-      tokenURL: `https://${yourOktaDomain}/oauth2/default/v1/token`,
-      clientID: `${ClientID}`,
-      clientSecret: `${ClientSecret}`,
+      authorizationURL: `https://${issuerUri}/v1/authorize`,
+      tokenURL: `https://${issuerUri}/v1/token`,
+      clientID: `${clientID}`,
+      clientSecret: `${clientSecret}`,
       callbackURL: 'http://localhost:8081/login/oauth2/code/oidc',
       scope: 'openid profile',
       state: true,
+      pkce: true,
     }, async (accessToken: any, refreshToken: any, params: any, user: any, done: any) => {
       const idToken = params.id_token;
       await this.authService.findUserOrSave(user);
-      return done(null, {user, idToken});
+      user.idToken = idToken;
+      return done(null, user);
     });
   }
 
   async userProfile(accessToken: any, done: any) {
     // roles with id http://dev-281272.okta.com/api/v1/users/00u1ldqoqzZ5MiCRd357/roles
     // id in http://dev-281272.okta.com/api/v1/users/me
-    return await this.httpService.get(`https://${yourOktaDomain}/oauth2/default/v1/userinfo`, {
+    return await this.httpService.get(`https://${issuerUri}/v1/userinfo`, {
       headers: {
         // Include the token in the Authorization header
         Authorization: 'Bearer ' + accessToken,

@@ -2,8 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, Logger, Param, Post, Put, Quer
 import { Response, Request } from 'express';
 import { AuthService } from '../../service/auth.service';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
-import { ApiOAuth2Auth, ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
-import { resolve } from 'path';
+import { ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 
 @Controller()
@@ -31,8 +30,8 @@ export class UserOauth2Controller {
 
   }
 
+  @ApiExcludeEndpoint()
   @Get('/oauth2/authorization/oidc')
-  @ApiOAuth2Auth()
   @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({ title: 'Perform login oauth2 oidc from client' })
   @ApiResponse({
@@ -43,16 +42,20 @@ export class UserOauth2Controller {
     return;
   }
 
+  @ApiExcludeEndpoint()
   @Post('/api/logout')
-  @ApiOperation({ title: 'Logout oauth2 oidc' })
+  @ApiOperation({ title: 'Perform logout oauth2 oidc from client' })
   @ApiResponse({
     status: 201,
     description: 'Logout oauth2 oidc',
   })
   async logoutAuthOidc(@Req() req: any) {
-    const idTokenFromSession = req.session.idToken;
+    let idTokenFromSession;
+    if (req.session.user) {
+      idTokenFromSession = req.session.user.idToken;
+    }
     req.session.destroy();
-    return {idToken: idTokenFromSession, logoutUrl : 'http://dev-281272.okta.com/logout' };
+    return { idToken: idTokenFromSession, logoutUrl: 'http://dev-281272.okta.com/oauth2/default/v1/logout' };
   }
 
 }
