@@ -19,21 +19,19 @@ export class AccountController {
 
   constructor(private readonly authService: AuthService) { }
 
-
   @Get('/account')
   @ApiOperation({ title: 'Get the current user if logged' })
   @ApiResponse({
     status: 200,
-    description: 'User retrieved'
+    description: 'User retrieved',
   })
-  async getAccount(@Req() req: Request) {
-    const user: User = req['session']['user'];
+  async getAccount(@Req() req: any) {
+    const user: User = req.session.user;
     if (user) {
       return user;
     }
     return;
 
   }
-
 
 }

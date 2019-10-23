@@ -26,14 +26,14 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'List all records',
-    type: User
+    type: User,
   })
   async getAllUsers(@Req() req: Request) {
     const pageRequest: PageRequest = new PageRequest(req.query.page, req.query.size, req.query.sort);
     const [results, count] = await this.userService.findAndCount({
       skip: +pageRequest.page * pageRequest.size,
       take: +pageRequest.size,
-      order: pageRequest.sort.asOrder()
+      order: pageRequest.sort.asOrder(),
     });
     HeaderUtil.addPaginationHeaders(req.res, new Page(results, count, pageRequest));
     return results;
@@ -45,7 +45,7 @@ export class UserController {
   @ApiResponse({
     status: 201,
     description: 'The record has been successfully created',
-    type: User
+    type: User,
   })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   async createUser(@Req() req: Request, @Body() user: User) {
@@ -60,7 +60,7 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'The record has been successfully updated',
-    type: User
+    type: User,
   })
   async updateUser(@Req() req: Request, @Body() user: User) {
     HeaderUtil.addEntityCreatedHeaders(req.res, 'User', user.id);
@@ -71,7 +71,7 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: User
+    type: User,
   })
   async getUser(@Param('login') loginValue: string) {
     return await this.userService.find({ where: { login: loginValue } });
@@ -81,7 +81,7 @@ export class UserController {
   @ApiOperation({ title: 'Delete login user' })
   @ApiResponse({
     status: 204,
-    description: 'The record has been successfully deleted'
+    description: 'The record has been successfully deleted',
   })
   @Roles(RoleType.ADMIN)
   async deleteUser(@Req() req: Request, @Param('login') loginValue: string) {

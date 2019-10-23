@@ -5,9 +5,9 @@ const commonConf = {
   ENTITIES: [__dirname + '/domain/*.entity{.ts,.js}'],
   MIGRATIONS: [__dirname + '/migrations/**/*{.ts,.js}'],
   CLI: {
-    migrationsDir: 'src/migrations'
+    migrationsDir: 'src/migrations',
   },
-  MIGRATIONS_RUN: true
+  MIGRATIONS_RUN: true,
 };
 
 let ormconfig: TypeOrmModuleOptions = {
@@ -19,7 +19,7 @@ let ormconfig: TypeOrmModuleOptions = {
   entities: commonConf.ENTITIES,
   migrations: commonConf.MIGRATIONS,
   cli: commonConf.CLI,
-  migrationsRun: commonConf.MIGRATIONS_RUN
+  migrationsRun: commonConf.MIGRATIONS_RUN,
 };
 
 if (process.env.NODE_ENV === 'prod') {
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'prod') {
     entities: commonConf.ENTITIES,
     migrations: commonConf.MIGRATIONS,
     cli: commonConf.CLI,
-    migrationsRun: commonConf.MIGRATIONS_RUN
+    migrationsRun: commonConf.MIGRATIONS_RUN,
   };
 }
 

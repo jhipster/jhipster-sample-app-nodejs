@@ -40,7 +40,7 @@ export class JhiConfigurationService {
       }
     }
     // by default, use the default ApplicationContext Id
-    return res['contexts']['jhipsterOauth2SampleApplication']['beans'];
+    return res['contexts']['gen']['beans'];
   }
 
   getEnv(): Observable<any> {

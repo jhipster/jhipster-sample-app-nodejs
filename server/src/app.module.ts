@@ -14,6 +14,6 @@ import { ormconfig } from './orm.config';
   controllers: [
     // jhipster-needle-add-controller-module-to-main - JHipster will add controller modules here, do not remove
   ],
-  providers: []
+  providers: [],
 })
 export class AppModule {}

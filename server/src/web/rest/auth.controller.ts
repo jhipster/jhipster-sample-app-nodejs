@@ -23,11 +23,11 @@ export class AuthController {
     status: 200,
     description: 'List all user roles',
     type: String,
-    isArray: true
+    isArray: true,
   })
   @Roles(RoleType.ADMIN)
-  async getAuthorities(@Req() req: Request) {
-    const user: User = req['user'];
+  async getAuthorities(@Req() req: any) {
+    const user: User = req.user;
     return user.authorities;
   }
 }

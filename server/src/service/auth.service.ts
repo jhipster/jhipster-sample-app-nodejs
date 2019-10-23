@@ -14,7 +14,6 @@ export class AuthService {
 
   ) { }
 
-
   async findUserOrSave(loginUser: User): Promise<User | undefined> {
     let userFound = await this.userService.findByfields({ where: { login: loginUser.login }, relations: ['authorities'] });
 

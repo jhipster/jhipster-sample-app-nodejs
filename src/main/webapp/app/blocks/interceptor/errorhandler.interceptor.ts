@@ -15,7 +15,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         (err: any) => {
           if (err instanceof HttpErrorResponse) {
             if (!(err.status === 401 && (err.message === '' || (err.url && err.url.includes('api/account'))))) {
-              this.eventManager.broadcast({ name: 'jhipsterOauth2SampleApplicationApp.httpError', content: err });
+              this.eventManager.broadcast({ name: 'genApp.httpError', content: err });
             }
           }
         }

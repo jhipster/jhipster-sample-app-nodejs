@@ -1,33 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
 import { flatMap } from 'rxjs/operators';
 import { AccountService } from 'app/core/auth/account.service';
-import { AuthServerProvider } from 'app/core/auth/auth-session.service';
+import { AuthServerProvider } from 'app/core/auth/auth-jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-  constructor(private accountService: AccountService, private location: Location, private authServerProvider: AuthServerProvider) {}
+  constructor(private accountService: AccountService, private authServerProvider: AuthServerProvider) {}
 
-  login() {
-    // If you have configured multiple OIDC providers, then, you can update this URL to /login.
-    // It will show a Spring Security generated login page with links to configured OIDC providers.
-    location.href = `${location.origin}${this.location.prepareExternalUrl('oauth2/authorization/oidc')}`;
+  login(credentials) {
+    return this.authServerProvider.login(credentials).pipe(flatMap(() => this.accountService.identity(true)));
   }
 
   logout() {
-    this.authServerProvider.logout().subscribe(response => {
-      const data = response.body;
-      let logoutUrl = data.logoutUrl;
-      const redirectUri = `${location.origin}${this.location.prepareExternalUrl('/')}`;
-
-      // if Keycloak, uri has protocol/openid-connect/token
-      if (logoutUrl.indexOf('/protocol') > -1) {
-        logoutUrl = logoutUrl + '?redirect_uri=' + redirectUri;
-      } else {
-        // Okta
-        logoutUrl = logoutUrl + '?id_token_hint=' + data.idToken + '&post_logout_redirect_uri=' + redirectUri;
-      }
-      window.location.href = logoutUrl;
-    });
+    this.authServerProvider.logout().subscribe(null, null, () => this.accountService.authenticate(null));
   }
 }

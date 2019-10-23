@@ -7,7 +7,6 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
 
   role2: Authority = { name: 'ROLE_USER' };
 
- 
   public async up(queryRunner: QueryRunner): Promise<any> {
     const conn = queryRunner.connection;
     await conn

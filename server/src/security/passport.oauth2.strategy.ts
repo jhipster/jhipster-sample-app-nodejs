@@ -5,11 +5,10 @@ import { Request } from 'express';
 import { config } from '../config/config';
 import { AuthService } from '../service/auth.service';
 
-
-const issuerUri = 'dev-281272.okta.com/oauth2/default';
-const clientID = '0oa1ldsfjyrdYMRfO357';
-const clientSecret = 'KXgpyXqvD-Kgc2L77C4uaat8E-kpb0CCx4z56Ayt';
-
+const issuerUri = config.get('jhipster.security.oauth2.client.provider.oidc.issuer-uri');
+const clientID = config.get('jhipster.security.oauth2.client.registration.oidc.client-id');
+const clientSecret = config.get('jhipster.security.oauth2.client.registration.oidc.client-secret');
+const port = config.get('server.port');
 
 @Injectable()
 export class Oauth2Strategy extends PassportStrategy(Strategy) {
@@ -19,11 +18,11 @@ export class Oauth2Strategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService, private readonly httpService: HttpService) {
 
     super({
-      authorizationURL: `https://${issuerUri}/v1/authorize`,
-      tokenURL: `https://${issuerUri}/v1/token`,
+      authorizationURL: `${issuerUri}/v1/authorize`,
+      tokenURL: `${issuerUri}/v1/token`,
       clientID: `${clientID}`,
       clientSecret: `${clientSecret}`,
-      callbackURL: 'http://localhost:8081/login/oauth2/code/oidc',
+      callbackURL: `http://localhost:${port}/login/oauth2/code/oidc`,
       scope: 'openid profile',
       state: true,
       pkce: true,
@@ -36,9 +35,9 @@ export class Oauth2Strategy extends PassportStrategy(Strategy) {
   }
 
   async userProfile(accessToken: any, done: any) {
-    // roles with id http://dev-281272.okta.com/api/v1/users/00u1ldqoqzZ5MiCRd357/roles
+    // roles with id http://dev-281272.okta.com/api/v1/users/<id>/roles
     // id in http://dev-281272.okta.com/api/v1/users/me
-    return await this.httpService.get(`https://${issuerUri}/v1/userinfo`, {
+    return await this.httpService.get(`${issuerUri}/v1/userinfo`, {
       headers: {
         // Include the token in the Authorization header
         Authorization: 'Bearer ' + accessToken,
@@ -67,6 +66,5 @@ export class Oauth2Strategy extends PassportStrategy(Strategy) {
     });
 
   }
-
 
 }

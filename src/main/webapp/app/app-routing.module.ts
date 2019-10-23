@@ -20,6 +20,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           canActivate: [UserRouteAccessService],
           loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule)
         },
+        {
+          path: 'account',
+          loadChildren: () => import('./account/account.module').then(m => m.GenAccountModule)
+        },
         ...LAYOUT_ROUTES
       ],
       { enableTracing: DEBUG_INFO_ENABLED }
@@ -27,4 +31,4 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
   ],
   exports: [RouterModule]
 })
-export class JhipsterOauth2SampleApplicationAppRoutingModule {}
+export class GenAppRoutingModule {}

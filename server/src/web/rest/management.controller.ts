@@ -21,7 +21,7 @@ export class ManagementController {
 
     return {
       'activeProfiles': 'no',
-      'display-ribbon-on-profiles': 'no'
+      'display-ribbon-on-profiles': 'no',
     };
   }
 }

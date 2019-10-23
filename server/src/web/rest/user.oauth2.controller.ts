@@ -4,6 +4,9 @@ import { AuthService } from '../../service/auth.service';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
+import { config } from '../../config/config';
+
+const issuerUri = config.get('jhipster.security.oauth2.client.provider.oidc.issuer-uri');
 
 @Controller()
 @UseInterceptors(LoggingInterceptor)
@@ -55,7 +58,7 @@ export class UserOauth2Controller {
       idTokenFromSession = req.session.user.idToken;
     }
     req.session.destroy();
-    return { idToken: idTokenFromSession, logoutUrl: 'http://dev-281272.okta.com/oauth2/default/v1/logout' };
+    return { idToken: idTokenFromSession, logoutUrl: `${issuerUri}/v1/logout` };
   }
 
 }

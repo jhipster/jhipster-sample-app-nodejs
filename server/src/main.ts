@@ -22,23 +22,21 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, appOptions);
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: (errors: ValidationError[]) => new BadRequestException('Validation error')
-    })
+      exceptionFactory: (errors: ValidationError[]) => new BadRequestException('Validation error'),
+    }),
   );
 
   app.use(
     session({
-      secret: 'nest cats',
-      resave: true,
+      secret: config.get('jhipster.security.session.secret'),
+      resave: false,
       saveUninitialized: true,
+      cookie: { secure: false, maxAge: 240000 }, // 4 minutes and session expires
     }),
   );
 
-
-
   app.use(passport.initialize());
   app.use(passport.session());
-
 
   const staticClientPath = path.join(__dirname, '../dist/classes/static');
   if (fs.existsSync(staticClientPath)) {
@@ -62,7 +60,7 @@ async function loadCloudConfig() {
       context: process.env,
       endpoint,
       name: config.get('cloud.config.name'),
-      profiles: config.get('cloud.config.profile') || ['prod']
+      profiles: config.get('cloud.config.profile') || ['prod'],
       // auth: {
       //   user: config.get('jhipster.registry.username') || 'admin',
       //   pass: config.get('jhipster.registry.password') || 'admin'
@@ -85,29 +83,29 @@ async function registerAsEurekaService() {
         hostName: config.get('ipAddress') || 'localhost',
         ipAddr: config.get('ipAddress') || '127.0.0.1',
         port: {
-          $: config.get('server.port'),
-          '@enabled': 'true'
+          '$': config.get('server.port'),
+          '@enabled': 'true',
         },
         vipAddress: config.get('ipAddress') || 'localhost',
         statusPageUrl: `http://${config.get('ipAddress')}:${config.get('server.port')}/`,
         dataCenterInfo: {
           '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
-          name: 'MyOwn'
-        }
+          'name': 'MyOwn',
+        },
       },
       eureka: {
         // eureka server host / port
         host: eurekaUrl.hostname || '127.0.0.1',
         port: eurekaUrl.port || 8761,
-        servicePath: '/eureka/apps'
+        servicePath: '/eureka/apps',
       },
       requestMiddleware: (requestOpts, done) => {
         requestOpts.auth = {
           user: config.get('jhipster.registry.username') || 'admin',
-          password: config.get('jhipster.registry.password') || 'admin'
+          password: config.get('jhipster.registry.password') || 'admin',
         };
         done(requestOpts);
-      }
+      },
     });
     client.logger.level('debug');
     client.start(error => logger.log(error || 'Eureka registration complete'));

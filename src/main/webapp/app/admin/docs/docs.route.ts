@@ -6,6 +6,6 @@ export const docsRoute: Route = {
   path: '',
   component: JhiDocsComponent,
   data: {
-    pageTitle: 'global.menu.admin.apidocs'
+    pageTitle: 'API'
   }
 };
