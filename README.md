@@ -29,6 +29,28 @@ Add the `help` flag on any command to see how you can use it. For example, `npm 
 
 The `npm run` command will list all of the scripts available to run for this project.
 
+## JWT authentication and authorization
+
+Congratulations! You've selected an excellent way to secure your NHipster application. If you're not sure what JSON Web Token (JWT) is, please see [What the Heck is JWT?](https://jwt.io/introduction/)
+
+Your app uses, to get and use the token, the `server/src/config/application.yml` settings:
+
+```yaml
+  ...
+  security:
+    authentication:
+        jwt:
+            # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+            base64-secret: {yourSecret}
+            # Token is valid 24 hours
+            token-validity-in-seconds: 86400
+            token-validity-in-seconds-for-remember-me: 2592000
+```
+
+You can use the default secret created from the app, or change it.
+So to get a token, you have to pass a POST request on the _api/authenticate_ url with **UserLoginDTO** as body.
+For this you can use **swagger ui** on **/api/v2/api-docs** path, or the client login page (if you have generated it).
+
 ### PWA Support
 
 JHipster ships with PWA (Progressive Web App) support, and it's disabled by default. One of the main components of a PWA is a service worker.

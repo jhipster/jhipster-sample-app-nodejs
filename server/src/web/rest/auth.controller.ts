@@ -41,7 +41,7 @@ export class AuthController {
     isArray: true
   })
   @Roles(RoleType.ADMIN)
-  async getAuthorities(@Req() req: Request) {
+  async getAuthorities(@Req() req: any) {
     const user: User = req.user;
     return user.authorities;
   }

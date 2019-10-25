@@ -4,7 +4,7 @@ import { config } from './config/config';
 
 export function setupSwagger(app: INestApplication) {
   const logger: Logger = new Logger('Swagger');
-  const swaggerEndpoint = '/api/v2/api-docs';
+  const swaggerEndpoint = config.get('jhipster.swagger.path');
 
   const options = new DocumentBuilder()
     .setTitle(config.get('jhipster.swagger.title'))
