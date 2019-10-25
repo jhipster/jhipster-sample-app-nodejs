@@ -29,14 +29,12 @@ import { AuthService } from '../../service/auth.service';
 @Controller('api')
 @UseInterceptors(LoggingInterceptor)
 @UseGuards(AuthGuard, RolesGuard)
-@UseInterceptors(LoggingInterceptor)
 @ApiBearerAuth()
 @ApiUseTags('account-resource')
 export class AccountController {
   logger = new Logger('AccountController');
 
   constructor(private readonly authService: AuthService) {}
-
   @Post('/register')
   @ApiOperation({ title: 'Register user' })
   @ApiResponse({

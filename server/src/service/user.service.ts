@@ -4,8 +4,6 @@ import { User } from '../domain/user.entity';
 import { UserRepository } from '../repository/user.repository';
 import { FindManyOptions, FindOneOptions, UpdateResult, FindConditions, DeleteResult } from 'typeorm';
 
-export type User = any;
-
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(UserRepository) private userRepository: UserRepository) {}

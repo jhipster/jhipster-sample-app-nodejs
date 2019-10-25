@@ -17,6 +17,7 @@ export class Config {
   'jhipster.swagger.title' = 'gen API';
   'jhipster.swagger.description' = 'gen API documentation';
   'jhipster.swagger.version' = '0.0.1';
+  'jhipster.swagger.path' = '/api/v2/api-docs';
   'eureka.client.enabled' = true;
   'eureka.client.healthcheck.enabled' = true;
   'eureka.client.fetch-registry' = true;

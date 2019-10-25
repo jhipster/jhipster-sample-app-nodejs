@@ -1,16 +1,16 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../domain/user.entity';
 import { UserLoginDTO } from '../service/dto/user-login.dto';
+import { Payload } from '../security/payload.interface';
 import { Authority } from '../domain/authority.entity';
+import { User } from '../domain/user.entity';
 import { AuthorityRepository } from '../repository/authority.repository';
 import { UserService } from '../service/user.service';
-import { Payload } from '../security/payload.interface';
-import { FindManyOptions } from 'typeorm';
 
 @Injectable()
 export class AuthService {
+  logger = new Logger('AuthService');
   constructor(
     private readonly jwtService: JwtService,
     @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
