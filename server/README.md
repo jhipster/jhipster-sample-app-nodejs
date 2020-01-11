@@ -88,7 +88,7 @@ $ set NODE_ENV=prod&& node dist/main.js
 $ npm run lint
 
 # fix lint issues
-$ npm run lint-fix
+$ npm run lint:fix
 
 ```
 
@@ -110,7 +110,7 @@ $ npm run test
 $ npm run lint
 
 # fix lint issues
-$ npm run lint-fix
+$ npm run lint:fix
 
 # e2e tests
 $ npm run test:e2e

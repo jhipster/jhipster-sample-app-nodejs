@@ -5,11 +5,12 @@
             <fa-icon [icon]="'plus'"></fa-icon> <span>Create a new User</span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="table-responsive" *ngIf="users">
         <table class="table table-striped" aria-describedby="user-management-page-heading">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="transition.bind(this)">
                 <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th scope="col"  jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th scope="col"  jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -30,7 +31,7 @@
                     <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"
                            >Deactivated</button>
                     <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"
-                            [disabled]="currentAccount.login === user.login">Activated</button>
+                            [disabled]="!currentAccount || currentAccount.login === user.login">Activated</button>
                 </td>
                 
                 <td>
@@ -57,7 +58,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="button" (click)="deleteUser(user)"
-                                class="btn btn-danger btn-sm" [disabled]="currentAccount.login === user.login">
+                                class="btn btn-danger btn-sm" [disabled]="!currentAccount || currentAccount.login === user.login">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>
                         </button>

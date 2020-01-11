@@ -1,6 +1,6 @@
 # gen
 
-This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.4.1](https://www.jhipster.tech/documentation-archive/v6.4.1). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
+This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.6.0](https://www.jhipster.tech/documentation-archive/v6.6.0). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
 
 ## Development
 
@@ -149,13 +149,13 @@ Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in 
 For more information, refer to the [Running tests page][].
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.4.1 archive]: https://www.jhipster.tech/documentation-archive/v6.4.1
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.4.1/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.4.1/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.4.1/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.4.1/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.4.1/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.4.1/setting-up-ci/
+[jhipster 6.6.0 archive]: https://www.jhipster.tech/documentation-archive/v6.6.0
+[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.6.0/development/
+[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.6.0/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.6.0/production/
+[running tests page]: https://www.jhipster.tech/documentation-archive/v6.6.0/running-tests/
+[code quality page]: https://www.jhipster.tech/documentation-archive/v6.6.0/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.6.0/setting-up-ci/
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
 [webpack]: https://webpack.github.io/

@@ -88,6 +88,6 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
       .add([this.role2]);
   }
 
-  // tslint:disable-next-line
+  // eslint-disable-next-line
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }

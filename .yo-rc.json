@@ -1,6 +1,6 @@
 {
   "generator-jhipster-nodejs": {
-    "jhipsterVersion": "6.4.1",
+    "jhipsterVersion": "6.6.0",
     "applicationType": "monolith",
     "baseName": "gen",
     "packageName": "com.jhipster.node",
@@ -23,12 +23,11 @@
     "clientPackageManager": "npm",
     "clientFramework": "angularX",
     "clientTheme": "none",
-    "clientThemeVariant": "",
-    "jwtSecretKey": "OWUzYzljOTgxNWFjNjFmZmFmNmU1ZGU0ODAyYzIxMjVlMzkzODJlMzYyMmE4NDMxYzRmMTQzZDFkYmExNTFmMDQ4NTlmZjc2NWQzY2M3Yjg0NjQ2ODFiNzBhMTEwMTAyMDQ2NzljNmQ1MDFiMmU4N2U3YmE0ZmJjNmM4ZDE3ZmM=",
-    "enableTranslation": false
+    "clientThemeVariant": ""
   },
   "generator-jhipster": {
-    "jhipsterVersion": "6.4.1",
+    "jhipsterVersion": "6.6.0",
+    "creationTimestamp": 1578750999575,
     "applicationType": "monolith",
     "baseName": "gen",
     "testFrameworks": [],
@@ -38,7 +37,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.1"
+        "version": "1.0.0-beta.2"
       }
     ],
     "enableTranslation": false,
@@ -46,7 +45,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.1"
+        "version": "1.0.0-beta.2"
       }
     ]
   }

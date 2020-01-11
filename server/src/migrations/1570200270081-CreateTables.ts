@@ -11,6 +11,6 @@ export class CreateTables1570200270081 implements MigrationInterface {
     }
   }
 
-  // tslint:disable-next-line
+  // eslint-disable-next-line
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }

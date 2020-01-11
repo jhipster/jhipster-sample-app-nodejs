@@ -1,27 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Logger,
-  Param,
-  Post,
-  Put,
-  Query,
-  Res,
-  UseGuards,
-  Req,
-  UseInterceptors
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Body, Param, Post, Res, UseGuards, Controller, Get, Logger, Req, UseInterceptors } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { Authority } from '../../domain/authority.entity';
-import { AuthorityRepository } from '../../repository/authority.repository';
-import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
-import { PageRequest, Page } from '../../domain/base/pagination.entity';
+import { AuthGuard, RolesGuard } from '../../security';
 import { User } from '../../domain/user.entity';
-import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiBearerAuth, ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from '../../service/auth.service';
@@ -42,7 +22,7 @@ export class AccountController {
     description: 'Registered user',
     type: User
   })
-  async registerAccount(@Req() req: Request, @Body() user: User, @Res() res: Response) {
+  registerAccount(@Req() req: Request, @Body() user: User, @Res() res: Response): any {
     return res.sendStatus(201);
   }
 
@@ -52,7 +32,7 @@ export class AccountController {
     status: 200,
     description: 'activated'
   })
-  async activateAccount(@Param() key: string, @Res() res: Response) {
+  activateAccount(@Param() key: string, @Res() res: Response): any {
     return res.sendStatus(200);
   }
 
@@ -62,7 +42,7 @@ export class AccountController {
     status: 200,
     description: 'login authenticated'
   })
-  async isAuthenticated(@Req() req: Request) {
+  isAuthenticated(@Req() req: Request): any {
     const user: User = req.user;
     return user.login;
   }
@@ -73,7 +53,7 @@ export class AccountController {
     status: 200,
     description: 'user retrieved'
   })
-  async getAccount(@Req() req: Request) {
+  async getAccount(@Req() req: Request): Promise<any> {
     const user: User = req.user;
     return await this.authService.findUserWithAuthById(user.id);
   }
@@ -85,7 +65,7 @@ export class AccountController {
     description: 'user info updated',
     type: User
   })
-  async saveAccount(@Req() req: Request, @Body() user: User, @Res() res: Response) {
+  saveAccount(@Req() req: Request, @Body() user: User, @Res() res: Response): any {
     return res.sendStatus(201);
   }
 
@@ -96,7 +76,7 @@ export class AccountController {
     description: 'user password changed',
     type: User
   })
-  async changePassword(@Req() req: Request, @Body() user: User, @Res() res: Response) {
+  changePassword(@Req() req: Request, @Body() user: User, @Res() res: Response): any {
     return res.sendStatus(201);
   }
 
@@ -105,9 +85,9 @@ export class AccountController {
   @ApiResponse({
     status: 201,
     description: 'mail to reset password sent',
-    type: String
+    type: 'string'
   })
-  async requestPasswordReset(@Req() req: Request, @Body() email: string, @Res() res: Response) {
+  requestPasswordReset(@Req() req: Request, @Body() email: string, @Res() res: Response): any {
     return res.sendStatus(201);
   }
 
@@ -116,9 +96,9 @@ export class AccountController {
   @ApiResponse({
     status: 201,
     description: 'password reset',
-    type: String
+    type: 'string'
   })
-  async finishPasswordReset(@Req() req: Request, @Body() keyAndPassword: string, @Res() res: Response) {
+  finishPasswordReset(@Req() req: Request, @Body() keyAndPassword: string, @Res() res: Response): any {
     return res.sendStatus(201);
   }
 }

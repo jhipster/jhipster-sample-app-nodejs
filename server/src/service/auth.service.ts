@@ -17,7 +17,7 @@ export class AuthService {
     private userService: UserService
   ) {}
 
-  async login(userLogin: UserLoginDTO) {
+  async login(userLogin: UserLoginDTO): Promise<any> {
     const loginUserName = userLogin.username;
     const loginPassword = userLogin.password;
 
@@ -30,11 +30,13 @@ export class AuthService {
 
     const payload: Payload = { id: user.id, username: user.login, authorities: user.authorities };
 
+    /* eslint-disable */
     return {
       id_token: this.jwtService.sign(payload)
     };
   }
 
+  /* eslint-enable */
   async validateUser(payload: Payload): Promise<User | undefined> {
     return await this.findUserWithAuthById(payload.id);
   }

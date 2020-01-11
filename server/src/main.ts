@@ -1,17 +1,16 @@
-// tslint:disable-next-line: no-var-requires
 require('dotenv').config({ path: '.env' });
 import { NestFactory } from '@nestjs/core';
 import cloudConfigClient from 'cloud-config-client';
 import { AppModule } from './app.module';
 import { setupSwagger } from './swagger';
 import { config } from './config/config';
-import { Logger, ValidationPipe, ValidationError, BadRequestException } from '@nestjs/common';
+import { Logger, ValidationPipe, BadRequestException } from '@nestjs/common';
 import * as express from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 const logger: Logger = new Logger('Main');
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   loadCloudConfig();
   registerAsEurekaService();
 
@@ -19,7 +18,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, appOptions);
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: (errors: ValidationError[]) => new BadRequestException('Validation error')
+      exceptionFactory: (): BadRequestException => new BadRequestException('Validation error')
     })
   );
 
@@ -35,7 +34,7 @@ async function bootstrap() {
   logger.log(`Application listening on port ${config.get('server.port')}`);
 }
 
-async function loadCloudConfig() {
+async function loadCloudConfig(): Promise<void> {
   const useJHipsterRegistry = false && config.get('eureka.client.enabled');
   if (useJHipsterRegistry) {
     const endpoint = config.get('cloud.config.uri') || 'http://admin:admin@localhost:8761/config';
@@ -55,7 +54,7 @@ async function loadCloudConfig() {
   }
 }
 
-async function registerAsEurekaService() {
+function registerAsEurekaService(): void {
   const useJHipsterRegistry = false && config.get('eureka.client.enabled');
   if (useJHipsterRegistry) {
     logger.log(`Registering with eureka ${config.get('cloud.config.uri')}`);
@@ -84,7 +83,7 @@ async function registerAsEurekaService() {
         port: eurekaUrl.port || 8761,
         servicePath: '/eureka/apps'
       },
-      requestMiddleware: (requestOpts, done) => {
+      requestMiddleware: (requestOpts, done): any => {
         requestOpts.auth = {
           user: config.get('jhipster.registry.username') || 'admin',
           password: config.get('jhipster.registry.password') || 'admin'

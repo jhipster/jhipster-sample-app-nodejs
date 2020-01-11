@@ -10,25 +10,20 @@ export class NotificationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
-      tap(
-        (event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse) {
-            const arr = event.headers.keys();
-            let alert = null;
-            arr.forEach(entry => {
-              if (entry.toLowerCase().endsWith('app-alert')) {
-                alert = event.headers.get(entry);
-              }
-            });
-            if (alert) {
-              if (typeof alert === 'string') {
-                this.alertService.success(alert, null, null);
-              }
+      tap((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          const arr = event.headers.keys();
+          let alert: string | null = null;
+          arr.forEach(entry => {
+            if (entry.toLowerCase().endsWith('app-alert')) {
+              alert = event.headers.get(entry);
             }
+          });
+          if (alert) {
+            this.alertService.success(alert);
           }
-        },
-        (err: any) => {}
-      )
+        }
+      })
     );
   }
 }

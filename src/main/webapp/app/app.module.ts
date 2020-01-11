@@ -8,7 +8,7 @@ import { GenAppRoutingModule } from './app-routing.module';
 import { GenHomeModule } from './home/home.module';
 import { GenEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent } from './layouts/main/main.component';
+import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
@@ -24,7 +24,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     GenEntityModule,
     GenAppRoutingModule
   ],
-  declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
-  bootstrap: [JhiMainComponent]
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+  bootstrap: [MainComponent]
 })
 export class GenAppModule {}

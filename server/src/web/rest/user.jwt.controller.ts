@@ -1,25 +1,9 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Logger,
-  Param,
-  Post,
-  Put,
-  Query,
-  Res,
-  UseGuards,
-  Req,
-  UseInterceptors
-} from '@nestjs/common';
+import { Body, Controller, Logger, Post, Res, Req, UseInterceptors } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { UserLoginDTO } from '../../service/dto/user-login.dto';
 import { AuthService } from '../../service/auth.service';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
-import { resolve } from 'path';
 
 @Controller('api')
 @UseInterceptors(LoggingInterceptor)
@@ -35,7 +19,7 @@ export class UserJWTController {
     status: 201,
     description: 'Authorized'
   })
-  async authorize(@Req() req: Request, @Body() user: UserLoginDTO, @Res() res: Response) {
+  async authorize(@Req() req: Request, @Body() user: UserLoginDTO, @Res() res: Response): Promise<any> {
     const jwt = await this.authService.login(user);
     res.setHeader('Authorization', 'Bearer ' + jwt.id_token);
     return res.json(jwt);

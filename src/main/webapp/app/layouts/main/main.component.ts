@@ -2,29 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
 
+import { AccountService } from 'app/core/auth/account.service';
+
 @Component({
   selector: 'jhi-main',
   templateUrl: './main.component.html'
 })
-export class JhiMainComponent implements OnInit {
-  constructor(private titleService: Title, private router: Router) {}
+export class MainComponent implements OnInit {
+  constructor(private accountService: AccountService, private titleService: Title, private router: Router) {}
 
-  private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
-    let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'genApp';
+  ngOnInit(): void {
+    // try to log in automatically
+    this.accountService.identity().subscribe();
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateTitle();
+      }
+      if (event instanceof NavigationError && event.error.status === 404) {
+        this.router.navigate(['/404']);
+      }
+    });
+  }
+
+  private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
+    let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : '';
     if (routeSnapshot.firstChild) {
       title = this.getPageTitle(routeSnapshot.firstChild) || title;
     }
     return title;
   }
 
-  ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.titleService.setTitle(this.getPageTitle(this.router.routerState.snapshot.root));
-      }
-      if (event instanceof NavigationError && event.error.status === 404) {
-        this.router.navigate(['/404']);
-      }
-    });
+  private updateTitle(): void {
+    let pageTitle = this.getPageTitle(this.router.routerState.snapshot.root);
+    if (!pageTitle) {
+      pageTitle = 'Gen';
+    }
+    this.titleService.setTitle(pageTitle);
   }
 }
