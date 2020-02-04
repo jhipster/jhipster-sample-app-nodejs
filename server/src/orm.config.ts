@@ -37,4 +37,18 @@ if (process.env.NODE_ENV === 'prod') {
   };
 }
 
+if (process.env.NODE_ENV === 'test') {
+  ormconfig = {
+    name: 'default',
+    type: 'sqlite',
+    database: ':memory:',
+    logging: true,
+    synchronize: true,
+    entities: commonConf.ENTITIES,
+    migrations: commonConf.MIGRATIONS,
+    cli: commonConf.CLI,
+    migrationsRun: commonConf.MIGRATIONS_RUN
+  };
+}
+
 export { ormconfig };

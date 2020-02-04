@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../security/passport.jwt.strategy';
 import { UserJWTController } from '../web/rest/user.jwt.controller';
-import { config } from '../config/config';
+import { config } from '../config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorityRepository } from '../repository/authority.repository';
 

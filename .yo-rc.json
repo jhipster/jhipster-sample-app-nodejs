@@ -23,7 +23,9 @@
     "clientPackageManager": "npm",
     "clientFramework": "angularX",
     "clientTheme": "none",
-    "clientThemeVariant": ""
+    "clientThemeVariant": "",
+    "jwtSecretKey": "ZGQ1NGNkOTgxNTE3MzRhZDM4YmQ1OWRjZjQ0ZGQ1ODI3NjY0NjZiMWFhMWNlOWZjZDM3ZjQ3NTM4NjgzYjg2NWU5YThjY2JkNTBjYWI2ODY5M2QyOGY0ZDhkZWEzZWYzZmU4ZWU1YjY5Y2UzZmQ0OGE4MDI1YTVkYTcyYzgwNWE=",
+    "enableTranslation": false
   },
   "generator-jhipster": {
     "jhipsterVersion": "6.6.0",
@@ -37,7 +39,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.2"
+        "version": "1.0.0-beta.3"
       }
     ],
     "enableTranslation": false,
@@ -45,7 +47,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.2"
+        "version": "1.0.0-beta.3"
       }
     ]
   }

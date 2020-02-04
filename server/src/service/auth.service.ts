@@ -46,10 +46,7 @@ export class AuthService {
   }
 
   async findUserWithAuthById(userId: string): Promise<User | undefined> {
-    const user = await this.userService.findByfields({ where: { id: userId }, relations: ['authorities'] });
-    const authorities: string[] = [];
-    user.authorities.forEach(authority => authorities.push(authority.name));
-    user.authorities = authorities;
+    const user: any = await this.userService.findByfields({ where: { id: userId } });
     return user;
   }
 }

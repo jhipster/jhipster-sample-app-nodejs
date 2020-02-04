@@ -43,7 +43,7 @@ export class AccountController {
     description: 'login authenticated'
   })
   isAuthenticated(@Req() req: Request): any {
-    const user: User = req.user;
+    const user: any = req.user;
     return user.login;
   }
 
@@ -54,7 +54,7 @@ export class AccountController {
     description: 'user retrieved'
   })
   async getAccount(@Req() req: Request): Promise<any> {
-    const user: User = req.user;
+    const user: any = req.user;
     return await this.authService.findUserWithAuthById(user.id);
   }
 
