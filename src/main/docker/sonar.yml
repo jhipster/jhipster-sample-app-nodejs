@@ -1,0 +1,8 @@
+version: '2'
+services:
+  gen-sonar:
+    image: sonarqube:8.2-community
+    container_name: sonar
+    ports:
+      - 9001:9000
+      - 9092:9092

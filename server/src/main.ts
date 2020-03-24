@@ -9,6 +9,8 @@ import * as express from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 const logger: Logger = new Logger('Main');
+const port = process.env.NODE_SERVER_PORT || config.get('server.port');
+const useJHipsterRegistry = config.get('eureka.client.enabled');
 
 async function bootstrap(): Promise<void> {
   loadCloudConfig();
@@ -26,16 +28,17 @@ async function bootstrap(): Promise<void> {
   if (fs.existsSync(staticClientPath)) {
     app.use(express.static(staticClientPath));
     logger.log(`Serving static client resources on ${staticClientPath}`);
+  } else {
+    logger.log(`No client it has been found`);
   }
 
   setupSwagger(app);
 
-  await app.listen(config.get('server.port'));
-  logger.log(`Application listening on port ${config.get('server.port')}`);
+  await app.listen(port);
+  logger.log(`Application listening on port ${port}`);
 }
 
 async function loadCloudConfig(): Promise<void> {
-  const useJHipsterRegistry = false && config.get('eureka.client.enabled');
   if (useJHipsterRegistry) {
     const endpoint = config.get('cloud.config.uri') || 'http://admin:admin@localhost:8761/config';
     logger.log(`Loading cloud config from ${endpoint}`);
@@ -55,7 +58,6 @@ async function loadCloudConfig(): Promise<void> {
 }
 
 function registerAsEurekaService(): void {
-  const useJHipsterRegistry = false && config.get('eureka.client.enabled');
   if (useJHipsterRegistry) {
     logger.log(`Registering with eureka ${config.get('cloud.config.uri')}`);
     const Eureka = require('eureka-js-client').Eureka;
@@ -67,11 +69,11 @@ function registerAsEurekaService(): void {
         hostName: config.get('ipAddress') || 'localhost',
         ipAddr: config.get('ipAddress') || '127.0.0.1',
         port: {
-          $: config.get('server.port'),
+          $: port,
           '@enabled': 'true'
         },
         vipAddress: config.get('ipAddress') || 'localhost',
-        statusPageUrl: `http://${config.get('ipAddress')}:${config.get('server.port')}/`,
+        statusPageUrl: `http://${config.get('ipAddress')}:${port}/`,
         dataCenterInfo: {
           '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
           name: 'MyOwn'

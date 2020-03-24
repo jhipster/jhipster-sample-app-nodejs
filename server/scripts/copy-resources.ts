@@ -2,12 +2,10 @@ import * as shell from 'shelljs';
 import * as fs from 'fs';
 import * as path from 'path';
 
-let out = 'dist';
+const out = path.join(__dirname, '..', 'dist');
 createFolderIfNotExist(out);
 
-out = path.join(out, 'config');
-
-createFolderIfNotExist(out);
+createFolderIfNotExist(path.join(out, 'config'));
 
 shell.cp('-R', 'src/config/*.yml', 'dist/config');
 

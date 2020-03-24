@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { JhiDateUtils } from 'ng-jhipster';
 
+import { Authority } from 'app/shared/constants/authority.constants';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
 import { SERVER_API_URL } from 'app/app.constants';
@@ -34,6 +35,7 @@ describe('Service Tests', () => {
         const resourceUrl = SERVER_API_URL + 'api/users';
         expect(req.request.url).toEqual(`${resourceUrl}/user`);
       });
+
       it('should return User', () => {
         let expectedResult: string | undefined;
 
@@ -54,8 +56,8 @@ describe('Service Tests', () => {
         });
         const req = httpMock.expectOne({ method: 'GET' });
 
-        req.flush(['ROLE_USER', 'ROLE_ADMIN']);
-        expect(expectedResult).toEqual(['ROLE_USER', 'ROLE_ADMIN']);
+        req.flush([Authority.USER, Authority.ADMIN]);
+        expect(expectedResult).toEqual([Authority.USER, Authority.ADMIN]);
       });
 
       it('should propagate not found response', () => {

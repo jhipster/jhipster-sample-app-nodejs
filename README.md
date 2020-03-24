@@ -1,6 +1,6 @@
 # gen
 
-This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.6.0](https://www.jhipster.tech/documentation-archive/v6.6.0). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
+This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.8.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.8.0](https://www.jhipster.tech/documentation-archive/v6.8.0). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
 
 ## Development
 
@@ -28,6 +28,19 @@ specifying a newer version in [package.json](package.json). You can also run `np
 Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
 
 The `npm run` command will list all of the scripts available to run for this project.
+
+## Using Docker to simplify development (optional)
+
+You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+You can also fully dockerize your application and all the services that it depends on.
+
+For this run:
+
+```
+docker-compose -f src/main/docker/app.yml up -d
+```
+
+For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
 ## JWT authentication and authorization
 
@@ -148,14 +161,29 @@ Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in 
 
 For more information, refer to the [Running tests page][].
 
+### Code quality
+
+Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
+
+```
+docker-compose -f src/main/docker/sonar.yml up -d
+```
+
+You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
+Then, run a Sonar analysis in the server folder:
+
+    npm run sonar:scanner
+
+For more information, refer to the [Code quality page][].
+
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.6.0 archive]: https://www.jhipster.tech/documentation-archive/v6.6.0
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.6.0/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.6.0/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.6.0/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.6.0/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.6.0/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.6.0/setting-up-ci/
+[jhipster 6.8.0 archive]: https://www.jhipster.tech/documentation-archive/v6.8.0
+[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.8.0/development/
+[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.8.0/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.8.0/production/
+[running tests page]: https://www.jhipster.tech/documentation-archive/v6.8.0/running-tests/
+[code quality page]: https://www.jhipster.tech/documentation-archive/v6.8.0/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.8.0/setting-up-ci/
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
 [webpack]: https://webpack.github.io/

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Renderer, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -27,16 +27,11 @@ export class RegisterComponent implements AfterViewInit {
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
   });
 
-  constructor(
-    private loginModalService: LoginModalService,
-    private registerService: RegisterService,
-    private renderer: Renderer,
-    private fb: FormBuilder
-  ) {}
+  constructor(private loginModalService: LoginModalService, private registerService: RegisterService, private fb: FormBuilder) {}
 
   ngAfterViewInit(): void {
     if (this.login) {
-      this.renderer.invokeElementMethod(this.login.nativeElement, 'focus', []);
+      this.login.nativeElement.focus();
     }
   }
 
@@ -52,10 +47,9 @@ export class RegisterComponent implements AfterViewInit {
     } else {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
-      this.registerService.save({ login, email, password, langKey: 'en' }).subscribe(
-        () => (this.success = true),
-        response => this.processError(response)
-      );
+      this.registerService
+        .save({ login, email, password, langKey: 'en' })
+        .subscribe(() => (this.success = true), response => this.processError(response));
     }
   }
 

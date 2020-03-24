@@ -1,0 +1,8 @@
+version: '2'
+services:
+  gen-app:
+    build: ../../..
+    container_name: gen-app
+    environment:
+    ports:
+      - 8081:8081:
