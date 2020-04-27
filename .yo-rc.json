@@ -1,6 +1,6 @@
 {
   "generator-jhipster-nodejs": {
-    "jhipsterVersion": "6.6.0",
+    "jhipsterVersion": "6.8.0",
     "applicationType": "monolith",
     "baseName": "gen",
     "packageName": "com.jhipster.node",
@@ -39,7 +39,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0"
+        "version": "1.0.2"
       }
     ],
     "enableTranslation": false,
@@ -47,7 +47,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0"
+        "version": "1.0.2"
       }
     ],
     "packageName": "com.jhipster.node",
