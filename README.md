@@ -34,7 +34,15 @@ The `npm run` command will list all of the scripts available to run for this pro
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 You can also fully dockerize your application and all the services that it depends on.
 
-For this run:
+For example, to start a mysql database in a docker container, run:
+
+    docker-compose -f src/main/docker/mysql.yml up -d
+
+To stop it and remove the container, run:
+
+    docker-compose -f src/main/docker/mysql.yml down
+
+For the entire app run:
 
 ```
 docker-compose -f src/main/docker/app.yml up -d
@@ -140,7 +148,7 @@ will generate the file:
 #### Running
 
 ```bash
-npm start:app
+npm run start:app
 ```
 
 #### Building

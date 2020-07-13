@@ -18,7 +18,7 @@
     "start": "npm run clean && npm run copy-resources && nodemon --watch src -e ts,tsx --exec ts-node src/main.ts",
     "lint": "eslint . --ignore-path .server.eslintignore --no-eslintrc --config .server.eslintrc.json --ext .js,.ts",
     "lint:fix": "npm run lint -- --fix",
-    "test": "npm run lint && jest",
+    "test": "npm run lint:fix && npm run lint && jest",
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -46,13 +46,14 @@
     "shelljs": "0.8.3",
     "sqlite3": "4.0.9",
     "swagger-ui-express": "4.0.7",
-    "typeorm": "0.2.18"
+    "typeorm": "0.2.24",
+    "typeorm-encrypted": "0.5.5"
   },
   "devDependencies": {
     "@nestjs/testing": "6.5.3",
     "@types/express": "4.17.1",
     "@types/express-serve-static-core": "4.17.3",
-    "@types/jest": "24.0.18",
+    "@types/jest": "25.2.3",
     "@types/node": "11.13.4",
     "@types/passport-jwt": "3.0.1",
     "@types/supertest": "2.0.8",
@@ -62,7 +63,7 @@
     "eslint": "6.7.2",
     "eslint-config-prettier": "6.7.0",
     "eslint-loader": "3.0.3",
-    "jest": "24.7.1",
+    "jest": "25.2.3",
     "nodemon": "1.19.1",
     "prettier": "1.17.0",
     "rimraf": "3.0.0",
@@ -73,7 +74,7 @@
     "tsc-watch": "2.2.1",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.20.1",
-    "typescript": "3.4.3",
+    "typescript": "3.8.3",
     "webpack": "4.41.5"
   },
   "jest": {
