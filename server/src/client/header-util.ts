@@ -48,7 +48,7 @@ export class HeaderUtil {
     }
     links.push(this.prepareLink(url, page.total - 1, pageSize, 'last'));
     links.push(this.prepareLink(url, 0, pageSize, 'first'));
-    res.set('Link', links.join('%2C'));
+    res.set('Link', links.join(','));
   }
 
   private static prepareLink(url, pageNumber, pageSize, relType): any {
@@ -56,6 +56,6 @@ export class HeaderUtil {
     url.searchParams.set('page', pageNumber);
     url.searchParams.set('size', pageSize);
     url = url.toString().replace('http://localhost', '');
-    return `<${url}>%3B rel="${relType}"`;
+    return `<${url}>; rel="${relType}"`;
   }
 }

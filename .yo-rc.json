@@ -39,7 +39,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.1.0"
+        "version": "1.2.0"
       }
     ],
     "enableTranslation": false,
@@ -47,7 +47,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.1.0"
+        "version": "1.2.0"
       }
     ],
     "packageName": "com.jhipster.node",

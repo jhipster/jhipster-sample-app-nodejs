@@ -16,9 +16,10 @@ export class ActivateComponent implements OnInit {
   constructor(private activateService: ActivateService, private loginModalService: LoginModalService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.queryParams
-      .pipe(flatMap(params => this.activateService.get(params.key)))
-      .subscribe(() => (this.success = true), () => (this.error = true));
+    this.route.queryParams.pipe(flatMap(params => this.activateService.get(params.key))).subscribe(
+      () => (this.success = true),
+      () => (this.error = true)
+    );
   }
 
   login(): void {

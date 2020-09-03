@@ -5,4 +5,4 @@ services:
     container_name: gen-app
     environment:
     ports:
-      - 8081:8081:
+      - 8081:8081
