@@ -73,7 +73,7 @@ function registerAsEurekaService(): void {
           '@enabled': 'true'
         },
         vipAddress: config.get('ipAddress') || 'localhost',
-        statusPageUrl: `http://${config.get('ipAddress')}:${port}/`,
+        homePageUrl: `http://${config.get('ipAddress')}:${port}/`,
         dataCenterInfo: {
           '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
           name: 'MyOwn'
