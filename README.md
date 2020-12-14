@@ -167,6 +167,9 @@ Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in 
 
     npm test
 
+UI end-to-end tests are powered by [Protractor][], which is built on top of WebDriverJS. They're located in [src/test/javascript/e2e](src/test/javascript/e2e)
+and can be run in a terminal (`npm run e2e`) after that the full application is run (`npm run start:app`).
+
 For more information, refer to the [Running tests page][].
 
 ### Code quality
@@ -195,11 +198,11 @@ For more information, refer to the [Code quality page][].
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
 [webpack]: https://webpack.github.io/
-[angular cli]: https://cli.angular.io/
-[browsersync]: http://www.browsersync.io/
 [jest]: https://facebook.github.io/jest/
 [nestjs]: https://nestjs.com/
 [nestjs cli]: https://docs.nestjs.com/cli/usages
+[angular cli]: https://cli.angular.io/
+[browsersync]: http://www.browsersync.io/
 [jasmine]: http://jasmine.github.io/2.0/introduction.html
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: http://leafletjs.com/
