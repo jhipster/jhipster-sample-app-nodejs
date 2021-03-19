@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './module/auth.module';
-import { ormconfig } from './orm.config';
+import { ormConfig } from './orm.config';
 import { config } from './config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 // jhipster-needle-add-entity-module-to-main-import - JHipster will import entity modules here, do not remove
@@ -10,7 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
     imports: [
-        TypeOrmModule.forRoot(ormconfig),
+        TypeOrmModule.forRootAsync({ useFactory: ormConfig }),
         ServeStaticModule.forRoot({
             rootPath: config.getClientPath(),
         }),

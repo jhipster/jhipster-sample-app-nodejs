@@ -26,7 +26,8 @@ export class UserController {
         type: UserDTO,
     })
     async getAllUsers(@Req() req: Request): Promise<UserDTO[]> {
-        const pageRequest: PageRequest = new PageRequest(req.query.page, req.query.size, req.query.sort);
+        const sortField = req.query.sort;
+        const pageRequest: PageRequest = new PageRequest(req.query.page, req.query.size, sortField);
         const [results, count] = await this.userService.findAndCount({
             skip: +pageRequest.page * pageRequest.size,
             take: +pageRequest.size,

@@ -38,14 +38,20 @@ $ npm install
 
 ### Define your prod database
 
+As default your project will use an sqlite database (or a mongodb in memory).
 For prod database configuration,
-in [src/orm.config.ts](src/orm.config.ts) change your **url** connection:
+you don't have to do nothing if you use a docker-compose with a project database image.
+To use other custom instance, in [src/orm.config.ts](src/orm.config.ts) change **database, host, port, username and password** according your values:
 
 ```ts
-if(process.env.NODE_ENV==='prod'){
+if(process.env.BACKEND_ENV==='prod'){
   ormconfig = {
       ...
-      url: 'YOUR CONNECTION URL',
+      database: 'YOUR_DATABASE_NAME'
+      host: 'localhost',
+      port: 3307,
+      username: 'sa',
+      password: 'yourStrong(!)Password',
       logging: false,
       synchronize: commonConf.SYNCRONIZE,
       entities: commonConf.ENTITIES,
@@ -56,6 +62,8 @@ if(process.env.NODE_ENV==='prod'){
 }
 
 ```
+
+**To use it at runtime read the below section.**
 
 ### Migration data and schema
 
@@ -72,21 +80,53 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# build and run in production mode
-$ set NODE_ENV=prod&& npm run build && npm run start:prod
+# build transpiling files in javascript
+$ npm run build
 
-# run production build with node
-$ set NODE_ENV=prod&& node dist/main.js
+# run javascript build from the source project
+$ npm run start:prod
 
-# build production bundle with webpack
+# run javascript build with node
+$ node dist/main.js
+
+# build bundle with webpack
 $ npm run webpack:prod
 
-# run production bundle with node (not require node_modules folder)
+# run bundle with node (not require node_modules folder)
 $ node dist/bundle.js
 ```
 
-> You can specify dev or prod NODE_ENV value (default is dev as indicated in [.env](.env))
-> The webpack build bundle automatically is configured for prod env, and **can run without node_modules**
+### Using .env file and run in prod
+
+The app uses a **BACKEND_ENV** variable with **dev** default value in the [.env](.env) file.
+If you change the value to **prod**, you will use the **prod database at runtime** as defined in [src/orm.config.ts](src/orm.config.ts).
+You can also define all the variables that you want in that file. See https://www.npmjs.com/package/dotenv for the usage.
+
+> The standard values used from BACKEND_ENV are: dev, prod or test.
+> You can define your custom value for BACKEND_ENV, but remember to add an application-{BACKEND_ENV}.yml file in your [config folder](src/config), and a database configuration for that environment value, according the [src/orm.config.ts](src/orm.config.ts).
+
+If you don't want to set a value in the .env file, you can specify its in the runtime process.
+For example:
+
+```bash
+
+# development in prod environment
+# in linux
+$ BACKEND_ENV=prod npm run start
+# in windows
+$ set BACKEND_ENV=prod&& npm run start
+
+# run javascript build with node in prod environment
+# in linux
+$ BACKEND_ENV=prod node dist/main.js
+# in windows
+$ set BACKEND_ENV=prod&& node dist/main.js
+
+# run bundle with node (not require node_modules folder)
+$ node dist/bundle.js
+```
+
+> The webpack build bundle automatically is configured for prod env, and **can run without node_modules**.
 
 ## Lint
 
