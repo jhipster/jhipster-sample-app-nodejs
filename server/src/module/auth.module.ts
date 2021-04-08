@@ -9,21 +9,21 @@ import { config } from '../config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorityRepository } from '../repository/authority.repository';
 
-import { AuthController } from '../web/rest/auth.controller';
+import { PublicUserController } from '../web/rest/public.user.controller';
 import { AccountController } from '../web/rest/account.controller';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([AuthorityRepository]),
-        UserModule,
-        PassportModule,
-        JwtModule.register({
-            secret: config['jhipster.security.authentication.jwt.base64-secret'],
-            signOptions: { expiresIn: '300s' },
-        }),
-    ],
-    controllers: [UserJWTController, AuthController, AccountController],
-    providers: [AuthService, JwtStrategy],
-    exports: [AuthService],
+  imports: [
+    TypeOrmModule.forFeature([AuthorityRepository]),
+    UserModule,
+    PassportModule,
+    JwtModule.register({
+      secret: config['jhipster.security.authentication.jwt.base64-secret'],
+      signOptions: { expiresIn: '300s' },
+    }),
+  ],
+  controllers: [UserJWTController, PublicUserController, AccountController],
+  providers: [AuthService, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

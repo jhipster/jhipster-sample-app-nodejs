@@ -1,7 +1,7 @@
-version: '2'
+version: '3.8'
 services:
   gen-mysql:
-    image: mysql:8.0.19
+    image: mysql:8.0.23
     # volumes:
     #     - ~/volumes/jhipster/gen/mysql/:/var/lib/mysql/
     environment:

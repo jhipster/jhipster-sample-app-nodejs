@@ -7,6 +7,8 @@ const expect = chai.expect;
 describe('account', () => {
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
+  const username = process.env.E2E_USERNAME ?? 'admin';
+  const password = process.env.E2E_PASSWORD ?? 'admin';
   let passwordPage: PasswordPage;
   let settingsPage: SettingsPage;
 
@@ -20,7 +22,7 @@ describe('account', () => {
     const value1 = await element(by.css('h1')).getText();
     expect(value1).to.eq(expect1);
     signInPage = await navBarPage.getSignInPage();
-    await signInPage.autoSignInUsing('admin', 'foo');
+    await signInPage.autoSignInUsing(username, 'foo');
 
     const expect2 = 'Failed to sign in! Please check your credentials and try again.';
     const value2 = await element(by.css('.alert-danger')).getText();
@@ -34,7 +36,7 @@ describe('account', () => {
     const expect1 = 'Login';
     const value1 = await element(by.className('username-label')).getText();
     expect(value1).to.eq(expect1);
-    await signInPage.autoSignInUsing('admin', 'admin');
+    await signInPage.autoSignInUsing(username, password);
 
     const expect2 = 'You are logged in as user "admin".';
     await browser.wait(ec.visibilityOf(element(by.id('home-logged-message'))));
@@ -45,7 +47,7 @@ describe('account', () => {
   it('should be able to update settings', async () => {
     settingsPage = await navBarPage.getSettingsPage();
 
-    const expect1 = 'User settings for [admin]';
+    const expect1 = `User settings for [${username}]`;
     const value1 = await settingsPage.getTitle();
     expect(value1).to.eq(expect1);
     await settingsPage.save();
@@ -59,7 +61,7 @@ describe('account', () => {
   it('should fail to update password when using incorrect current password', async () => {
     passwordPage = await navBarPage.getPasswordPage();
 
-    expect(await passwordPage.getTitle()).to.eq('Password for [admin]');
+    expect(await passwordPage.getTitle()).to.eq(`Password for [${username}]`);
 
     await passwordPage.setCurrentPassword('wrong_current_password');
     await passwordPage.setPassword('new_password');
@@ -76,9 +78,9 @@ describe('account', () => {
   it('should be able to update password', async () => {
     passwordPage = await navBarPage.getPasswordPage();
 
-    expect(await passwordPage.getTitle()).to.eq('Password for [admin]');
+    expect(await passwordPage.getTitle()).to.eq(`Password for [${username}]`);
 
-    await passwordPage.setCurrentPassword('admin');
+    await passwordPage.setCurrentPassword(password);
     await passwordPage.setPassword('newpassword');
     await passwordPage.setConfirmPassword('newpassword');
     await passwordPage.save();
@@ -89,13 +91,13 @@ describe('account', () => {
     expect(alertValue).to.eq(successMsg);
     await navBarPage.autoSignOut();
     await navBarPage.goToSignInPage();
-    await signInPage.autoSignInUsing('admin', 'newpassword');
+    await signInPage.autoSignInUsing(username, 'newpassword');
 
     // change back to default
     await navBarPage.goToPasswordMenu();
     await passwordPage.setCurrentPassword('newpassword');
-    await passwordPage.setPassword('admin');
-    await passwordPage.setConfirmPassword('admin');
+    await passwordPage.setPassword(password);
+    await passwordPage.setConfirmPassword(password);
     await passwordPage.save();
 
     // wait for success message

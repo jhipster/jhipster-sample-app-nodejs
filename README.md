@@ -1,6 +1,6 @@
 # gen
 
-This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 6.8.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.8.0](https://www.jhipster.tech/documentation-archive/v6.8.0). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
+This application was generated using the [NodeJS blueprint](https://github.com/jhipster/generator-jhipster-nodejs) of JHipster 7.0.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.0](https://www.jhipster.tech/documentation-archive/v7.0.0). For any questions you can refer to the stream lead: [Angelo Manganiello](https://github.com/amanganiello90).
 
 ## Development
 
@@ -81,7 +81,7 @@ The service worker initialization code is commented out by default. To enable it
 ```html
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function() {
+    navigator.serviceWorker.register('./service-worker.js').then(function () {
       console.log('Service Worker Registered');
     });
   }
@@ -188,13 +188,13 @@ Then, run a Sonar analysis in the server folder:
 For more information, refer to the [Code quality page][].
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.8.0 archive]: https://www.jhipster.tech/documentation-archive/v6.8.0
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.8.0/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.8.0/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.8.0/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.8.0/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.8.0/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.8.0/setting-up-ci/
+[jhipster 7.0.0 archive]: https://www.jhipster.tech/documentation-archive/v7.0.0
+[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v7.0.0/development/
+[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v7.0.0/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v7.0.0/production/
+[running tests page]: https://www.jhipster.tech/documentation-archive/v7.0.0/running-tests/
+[code quality page]: https://www.jhipster.tech/documentation-archive/v7.0.0/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.0.0/setting-up-ci/
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
 [webpack]: https://webpack.github.io/
