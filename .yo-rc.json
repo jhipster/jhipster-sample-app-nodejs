@@ -3,18 +3,18 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "2.0.0-beta.1"
+        "version": "2.0.0"
       }
     ],
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "2.0.0-beta.1"
+        "version": "2.0.0"
       }
     ],
     "applicationType": "monolith",
     "baseName": "gen",
-    "jhipsterVersion": "7.0.0",
+    "jhipsterVersion": "7.0.1",
     "skipClient": false,
     "skipServer": false,
     "skipUserManagement": false,

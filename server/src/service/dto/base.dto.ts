@@ -1,14 +1,14 @@
 /**
- * A DTO base objct.
+ * A DTO base object.
  */
 export class BaseDTO {
-  id?: string;
+    id?: number;
 
-  createdBy?: string;
+    createdBy?: string;
 
-  createdDate?: Date;
+    createdDate?: Date;
 
-  lastModifiedBy?: string;
+    lastModifiedBy?: string;
 
-  lastModifiedDate?: Date;
+    lastModifiedDate?: Date;
 }

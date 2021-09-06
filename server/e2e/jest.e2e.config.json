@@ -1,12 +1,12 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": "..",
-  "testEnvironment": "node",
-  "testRegex": "(/e2e/.*|\\.(e2e-spec))\\.(ts)$",
-  "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
-  },
-  "coverageDirectory": "coverage",
-  "setupFiles": ["./e2e/setup.test.js"],
-  "testTimeout": 10000
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "..",
+    "testEnvironment": "node",
+    "testRegex": "(/e2e/.*|\\.(e2e-spec))\\.(ts)$",
+    "transform": {
+        "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "coverage",
+    "setupFiles": ["./e2e/setup.test.js"],
+    "testTimeout": 10000
 }

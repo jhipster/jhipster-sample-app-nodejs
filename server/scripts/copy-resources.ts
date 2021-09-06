@@ -12,15 +12,15 @@ shell.cp('-R', 'src/config/*.yml', 'dist/config');
 let clientDist = path.join(__dirname, '..', '..', 'target', 'classes', 'static');
 
 if (!fs.existsSync(clientDist)) {
-  clientDist = path.join(__dirname, '..', '..', 'build', 'resources', 'main', 'static');
+    clientDist = path.join(__dirname, '..', '..', 'build', 'resources', 'main', 'static');
 }
 
 if (fs.existsSync(clientDist)) {
-  shell.cp('-R', clientDist, out);
+    shell.cp('-R', clientDist, out);
 }
 
 function createFolderIfNotExist(outDir: string): void {
-  if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir);
-  }
+    if (!fs.existsSync(outDir)) {
+        fs.mkdirSync(outDir);
+    }
 }

@@ -173,10 +173,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Community - [jhipster homepage](https://www.jhipster.tech)
-- Stream Lead - [Angelo Manganiello](https://github.com/amanganiello90)
-- Website And Guide - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+-   Community - [jhipster homepage](https://www.jhipster.tech)
+-   Stream Lead - [Angelo Manganiello](https://github.com/amanganiello90)
+-   Website And Guide - [https://nestjs.com](https://nestjs.com/)
+-   Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
